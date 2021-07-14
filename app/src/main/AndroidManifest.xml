@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Club.NoActionBar" >
+        <activity android:name=".BottomNavi" >
+        </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" >
             <intent-filter>
@@ -17,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BottomNavi" />
+
     </application>
 
 </manifest>
