@@ -18,8 +18,12 @@ import java.util.Date;
 public class CustomFragment extends Fragment {
 
     EditText name;
-    EditText age;
+    EditText id;
+    EditText pw;
+    EditText pwcheck;
     Button birthday;
+    EditText phonenumber;
+    EditText phonenumbercheck;
 
     Date curDate = new Date();
     final SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
@@ -34,8 +38,12 @@ public class CustomFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_custom, container, false);
-        name = view.findViewById(R.id.editTextTextPersonName);
-        age = view.findViewById(R.id.editTextTextPersonName2);
+        name = view.findViewById(R.id.nameText);
+        id = view.findViewById(R.id.idText);
+        pw = view.findViewById(R.id.passwordText);
+        pwcheck = view.findViewById(R.id.passwordcheckText);
+        phonenumber = view.findViewById(R.id.numberText);
+        phonenumbercheck = view.findViewById(R.id.numberCheck);
 
         birthday = view.findViewById(R.id.button);
         birthday.setText(result);
@@ -46,21 +54,11 @@ public class CustomFragment extends Fragment {
             }
         });
 
-        Button save = view.findViewById(R.id.button2);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String nameStr = name.getText().toString();
-                String ageStr = age.getText().toString();
-                String birthStr = birthday.getText().toString();
-
-            }
-        });
-
         return view;
     }
 
     private void showDateDialog(){
+
         Calendar calendar = Calendar.getInstance();
         try {
             curDate = dataFormat.parse(birthday.getText().toString());
@@ -95,4 +93,5 @@ public class CustomFragment extends Fragment {
         String selectedDateStr = dataFormat.format(curDate);
         birthday.setText(selectedDateStr);
     }
+
 }
