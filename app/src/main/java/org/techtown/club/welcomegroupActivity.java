@@ -8,64 +8,52 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public abstract class BottomNavi extends AppCompatActivity {
+public class welcomegroupActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private Frag1 frag1;
-    private Frag2 frag2;
-    private Frag3 frag3;
-
+    private groupFrag1 groupfrag1;
+    private groupFrag2 groupfrag2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navi);
+        setContentView(R.layout.activity_welcomegroup);
 
-        bottomNavigationView = findViewById(R.id.bottomNavi);
+
+        bottomNavigationView = findViewById(R.id.groupNavi);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.action_notice:
+                    case R.id.action_add:
                         setFrag(0);
                         break;
-                    case R.id.action_money:
+                    case R.id.action_search:
                         setFrag(1);
                         break;
-                    case R.id.action_group:
-                        setFrag(2);
-                        break;
-
                 }
                 return true;
             }
         });
-        frag1 = new Frag1();
-        frag2 = new Frag2();
-        frag3 = new Frag3();
+        groupfrag1 = new groupFrag1();
+        groupfrag2 = new groupFrag2();
         setFrag(0);
-
     }
 
     private void setFrag(int n) {
         fm = getSupportFragmentManager();
         ft = fm.beginTransaction();
-        switch (n){
+        switch (n) {
             case 0:
-                ft.replace(R.id.main_frame, frag1);
+                ft.replace(R.id.group_frame, groupfrag1);
                 ft.commit();
                 break;
             case 1:
-                ft.replace(R.id.main_frame, frag2);
-                ft.commit();
-                break;
-            case 2:
-                ft.replace(R.id.main_frame, frag3);
+                ft.replace(R.id.group_frame, groupfrag2);
                 ft.commit();
                 break;
 

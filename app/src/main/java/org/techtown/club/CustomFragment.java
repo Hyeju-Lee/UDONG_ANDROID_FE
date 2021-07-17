@@ -13,12 +13,18 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import android.content.Intent;
+import org.w3c.dom.Text;
 
 public class CustomFragment extends Fragment {
 
@@ -29,6 +35,7 @@ public class CustomFragment extends Fragment {
     Button birthday;
     EditText phonenumber;
     EditText phonenumbercheck;
+    Button registerButton;
 
     Date curDate = new Date();
     final SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
@@ -46,6 +53,7 @@ public class CustomFragment extends Fragment {
         name = view.findViewById(R.id.nameText);
         id = view.findViewById(R.id.idText);
         pw = view.findViewById(R.id.passwordText);
+        registerButton = view.findViewById(R.id.registerButton);
         pwcheck = view.findViewById(R.id.passwordcheckText);
         phonenumber = view.findViewById(R.id.numberText);
         phonenumbercheck = view.findViewById(R.id.numberCheck);
@@ -58,7 +66,6 @@ public class CustomFragment extends Fragment {
                 showDateDialog();
             }
         });
-
         return view;
     }
 
@@ -99,5 +106,5 @@ public class CustomFragment extends Fragment {
         birthday.setText(selectedDateStr);
     }
 
-
 }
+
