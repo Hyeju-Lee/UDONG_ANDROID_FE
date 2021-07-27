@@ -4,74 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".welcomegroupActivity">
+    tools:context=".welcomegroupActivity"
+    android:layout_weight="1">
 
-    <LinearLayout
-        android:id="@+id/linear"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="환영합니다"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
-            android:text="어떤 우동이 좋으신가요?"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+        android:fillViewport="true">
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/makegroupbutton"
+            <TextView
+                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="우리 동아리 개설하기" />
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="환영합니다"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/searchgroupbutton"
+            <TextView
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="우리 동아리 가입하기" />
-        </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:text="어떤 우동이 좋으신가요?"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="55dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/makegroupbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="우리 동아리 개설하기" />
+
+                <Button
+                    android:id="@+id/searchgroupbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="우리 동아리 가입하기" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="715dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -140,11 +138,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="101dp"
                         android:layout_gravity="center"
+                        android:background="@drawable/textviewpretty"
                         android:ems="17"
                         android:gravity="start|top"
                         android:inputType="text"
                         android:maxLength="50"
-                        android:background="@drawable/textviewpretty"
                         android:privateImeOptions="defaultInputmode=korean" />
 
                     <TextView
@@ -177,20 +175,40 @@
                             android:layout_height="wrap_content"
                             android:text="추가하기"
                             app:backgroundTint="#E7D5FC" />
+
                     </LinearLayout>
 
-                    <ListView
-                        android:id="@+id/listView1"
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="192dp"></ListView>
+                        android:layout_height="200dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <ListView
+                                android:id="@+id/listView1"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp">
+                            </ListView>
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                    <Button
+                        android:id="@+id/makegroupbutton2"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="개설하기" />
 
                 </LinearLayout>
-            </ScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

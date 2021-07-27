@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Club.NoActionBar">
-        <activity android:name=".welcomegroupActivity2"></activity>
+        <activity
+            android:name=".ui.login.LoginActivity2sssss"
+            android:label="@string/title_activity_login_activity2sssss" />
+        <activity android:name=".welcomegroupActivity2" />
         <activity android:name=".welcomegroupActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
