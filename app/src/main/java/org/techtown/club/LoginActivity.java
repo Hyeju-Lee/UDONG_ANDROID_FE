@@ -1,6 +1,9 @@
 package org.techtown.club;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,10 +31,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         Button loginButton = (Button) findViewById(R.id.loginButton);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent Intent = new Intent(LoginActivity.this, MoneyActivity2.class);
+                Intent Intent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(Intent);
             }
         });
