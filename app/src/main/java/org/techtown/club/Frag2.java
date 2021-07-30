@@ -55,7 +55,9 @@ public class Frag2 extends Fragment{
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MoneyActivity2.class);
+
+                //Intent intent = new Intent(getActivity(), MoneyActivity2.class);
+                Intent intent= new Intent(getActivity(), DetailMoneyActivity.class);
                 startActivity(intent);
             }
 
