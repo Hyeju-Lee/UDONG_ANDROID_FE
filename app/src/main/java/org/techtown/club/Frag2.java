@@ -7,21 +7,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+
 public class Frag2 extends Fragment{
     private View view;
     Button button1;
+    Button button_add;
     ListView listView;
+
 
     @Nullable
     @Override
@@ -55,9 +56,18 @@ public class Frag2 extends Fragment{
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //Intent intent = new Intent(getActivity(), MoneyActivity2.class);
                 Intent intent= new Intent(getActivity(), DetailMoneyActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        button_add = view.findViewById(R.id.button_add);
+        button_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getActivity(), MoneyAdd.class);
                 startActivity(intent);
             }
 
