@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Club.NoActionBar">
-        <activity android:name=".NoticeWriteActivity"></activity>
+        <activity android:name=".GroupActivity"></activity>
+        <activity android:name=".NoticeWriteActivity" />
         <activity android:name=".MoneyAdd" />
         <activity
             android:name=".DetailMoneyActivity"

@@ -27,11 +27,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:text="공지"
+                    android:layout_weight="11.5"
+                    android:text="게시판"
                     android:textAlignment="center"
                     android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:layout_weight="11.5"/>
+                    android:textStyle="bold" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/floatingActionButton"

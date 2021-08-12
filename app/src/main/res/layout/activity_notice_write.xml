@@ -6,58 +6,62 @@
     android:layout_height="match_parent"
     tools:context=".NoticeWriteActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="186dp"
-        tools:layout_editor_absoluteY="230dp">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:text="공지 작성"
-            android:textSize="30dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/noticeTittle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/textviewpretty"
-            android:ems="17"
-            android:gravity="start|top"
-            android:hint="제목"
-            android:inputType="text"
-            android:maxLength="50"
-            android:privateImeOptions="defaultInputmode=korean" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="공지 작성"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/noticeContent"
-            android:layout_width="wrap_content"
-            android:layout_height="656dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/textviewpretty"
-            android:ems="17"
-            android:gravity="start|top"
-            android:inputType="text"
-            android:maxLength="50"
-            android:privateImeOptions="defaultInputmode=korean" />
+            <EditText
+                android:id="@+id/noticeTittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/textviewpretty"
+                android:ems="17"
+                android:gravity="start|top"
+                android:hint="제목"
+                android:inputType="text"
+                android:maxLength="50"
+                android:privateImeOptions="defaultInputmode=korean" />
 
-        <Button
-            android:id="@+id/button13"
-            android:layout_width="390dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
+            <EditText
+                android:id="@+id/noticeContent"
+                android:layout_width="wrap_content"
+                android:layout_height="301dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/textviewpretty"
+                android:ems="17"
+                android:gravity="start|top"
+                android:inputType="text"
+                android:maxLength="50"
+                android:privateImeOptions="defaultInputmode=korean" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/submitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Submit" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
