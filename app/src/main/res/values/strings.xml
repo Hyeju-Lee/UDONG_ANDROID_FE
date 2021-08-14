@@ -41,4 +41,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="server_client_id">74223968688-0ubi11covaq4khh2lipj1pn0567nqbh8.apps.googleusercontent.com</string>
 </resources>
