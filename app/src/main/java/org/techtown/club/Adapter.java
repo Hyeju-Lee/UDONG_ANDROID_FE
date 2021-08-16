@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends BaseAdapter {
-
     private Context mContext1;
     private ArrayList<String> array_mountain1, array_mountain2, array_mountain3, noduplicate;
     List<Integer> cnt = new ArrayList<>();
