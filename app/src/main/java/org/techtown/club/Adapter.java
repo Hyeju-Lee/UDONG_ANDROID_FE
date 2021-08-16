@@ -28,7 +28,6 @@ public class Adapter extends BaseAdapter {
         noduplicate = new ArrayList<>();
         int a = 0;
 
-
         
         for(String item: array_mountain1){
             if(!noduplicate.contains(item)) {
