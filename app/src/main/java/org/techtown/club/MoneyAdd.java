@@ -19,8 +19,8 @@ public class MoneyAdd extends AppCompatActivity {
 
     ListView listView1;
     ListView listView2;
-    ListViewDetailAdapter adapter;
-    ListViewDetailAdapter2 adapter2;
+    ListViewDetailAdapter_MoneyAdd1 adapter;
+    ListViewDetailAdapter_MoneyAdd2 adapter2;
 
     EditText what;
     EditText name;
@@ -70,8 +70,8 @@ public class MoneyAdd extends AppCompatActivity {
         imageView5 = (ImageView)findViewById(R.id.image5);
 
 
-        adapter = new ListViewDetailAdapter(MoneyAdd.this);
-        adapter2 = new ListViewDetailAdapter2(MoneyAdd.this);
+        adapter = new ListViewDetailAdapter_MoneyAdd1(MoneyAdd.this);
+        adapter2 = new ListViewDetailAdapter_MoneyAdd2(MoneyAdd.this);
         listView1.setAdapter(adapter);
         listView2.setAdapter(adapter2);
 

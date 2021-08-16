@@ -1,8 +1,6 @@
 package org.techtown.club;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,23 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import android.content.Intent;
-import org.w3c.dom.Text;
 
-public class CustomFragment extends Fragment {
+public class RegisterFragment extends Fragment {
 
     EditText name;
     EditText id;
@@ -41,7 +30,7 @@ public class CustomFragment extends Fragment {
     final SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy년 MM월 dd일");
     String result = dataFormat.format(curDate);
 
-    public CustomFragment() {
+    public RegisterFragment() {
 
     }
 
@@ -49,7 +38,7 @@ public class CustomFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_custom, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
         name = view.findViewById(R.id.nameText);
         id = view.findViewById(R.id.idText);
         pw = view.findViewById(R.id.passwordText);

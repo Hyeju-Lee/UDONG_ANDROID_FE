@@ -11,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class welcomegroupActivity extends AppCompatActivity {
+public class RegisterActivity1 extends AppCompatActivity {
 
     ListView listView1;
-    ListViewDetailAdapter3 adapter;
+    ListViewDetailAdapter_RegisterActivity1 adapter;
     ArrayList<String> listItem;
 
     EditText groupjob;
@@ -23,13 +23,13 @@ public class welcomegroupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcomegroup);
+        setContentView(R.layout.activity_register1);
 
         groupjob = findViewById(R.id.groupjob);
         jobaddbutton = findViewById(R.id.jobaddbutton);
         listView1 = (ListView) findViewById(R.id.listView1);
 
-        adapter = new ListViewDetailAdapter3(welcomegroupActivity.this);
+        adapter = new ListViewDetailAdapter_RegisterActivity1(RegisterActivity1.this);
         listView1.setAdapter(adapter);
 
         jobaddbutton.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +49,8 @@ public class welcomegroupActivity extends AppCompatActivity {
         searchgroupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(welcomegroupActivity.this, welcomegroupActivity2.class);
-                welcomegroupActivity.this.startActivity(registerIntent);
+                Intent registerIntent = new Intent(RegisterActivity1.this, RegisterActivity2.class);
+                RegisterActivity1.this.startActivity(registerIntent);
             }
         });
 
@@ -59,8 +59,8 @@ public class welcomegroupActivity extends AppCompatActivity {
         makegroupbutton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(welcomegroupActivity.this, MainActivity.class);
-                welcomegroupActivity.this.startActivity(registerIntent);
+                Intent registerIntent = new Intent(RegisterActivity1.this, MainActivity.class);
+                RegisterActivity1.this.startActivity(registerIntent);
             }
         });
     }

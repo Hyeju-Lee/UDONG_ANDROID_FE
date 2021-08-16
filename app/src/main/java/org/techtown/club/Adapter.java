@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +65,7 @@ public class Adapter extends BaseAdapter {
     public View getView(int position, View convertView1, ViewGroup parent) {
         // ViewHoldr 패턴
         if (convertView1 == null) {
-            convertView1 = LayoutInflater.from(mContext1).inflate(R.layout.layout_item, parent, false);
+            convertView1 = LayoutInflater.from(mContext1).inflate(R.layout.item_list_detailmoneyactivity, parent, false);
             mViewHolder1 = new ViewHolder(convertView1);
             convertView1.setTag(mViewHolder1);
 

@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListViewDetailAdapter extends BaseAdapter {
+public class ListViewDetailAdapter_MoneyAdd1 extends BaseAdapter {
 
     private Context mContext;
     private ArrayList<ListItemDetail> listItems = new ArrayList<ListItemDetail>();
 
-    public ListViewDetailAdapter(Context context){
+    public ListViewDetailAdapter_MoneyAdd1(Context context){
         this.mContext = context;
     }
 
@@ -40,7 +40,7 @@ public class ListViewDetailAdapter extends BaseAdapter {
         // item.xml 레이아웃을 inflate해서 참조획득
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.detail_item_list, parent, false);
+            convertView = inflater.inflate(R.layout.item_list_moneyadd, parent, false);
         }
 
         // item.xml 의 참조 획득

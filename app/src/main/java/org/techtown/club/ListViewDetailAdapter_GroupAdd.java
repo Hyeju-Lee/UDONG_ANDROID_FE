@@ -6,28 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListViewDetailAdapter3 extends BaseAdapter {
+public class ListViewDetailAdapter_GroupAdd extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<ListItemDetail2> listItems = new ArrayList<>();
+    private ArrayList<ListItemDetail2> listItems4 = new ArrayList<>();
 
-    public ListViewDetailAdapter3(Context context){
+    public ListViewDetailAdapter_GroupAdd(Context context){
         this.mContext = context;
     }
 
     @Override
     public int getCount() {
-        return listItems.size();
+        return listItems4.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listItems.get(i);
+        return listItems4.get(i);
     }
 
     @Override
@@ -41,24 +40,22 @@ public class ListViewDetailAdapter3 extends BaseAdapter {
         // item.xml 레이아웃을 inflate해서 참조획득
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.detail_role_item_list, parent, false);
+            convertView = inflater.inflate(R.layout.item_list_groupadd, parent, false);
         }
 
         // item.xml 의 참조 획득
-        TextView role_name = (TextView)convertView.findViewById(R.id.role_name);
-        CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.checkBox);
+        TextView groupMemberName = (TextView)convertView.findViewById(R.id.groupMemberName);
         Button btn_delete = (Button)convertView.findViewById(R.id.btn_delete);
 
-        ListItemDetail2 listItemDetail2 = listItems.get(position);
+        ListItemDetail2 listItemDetail2 = listItems4.get(position);
 
-        // 가져온 데이터를 텍스트뷰에 입력
-        role_name.setText(listItemDetail2.getWhat());
+        groupMemberName.setText(listItemDetail2.getWhat());
 
         // 리스트 아이템 삭제
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listItems.remove(position);
+                listItems4.remove(position);
                 notifyDataSetChanged();
             }
         });
@@ -71,6 +68,6 @@ public class ListViewDetailAdapter3 extends BaseAdapter {
 
         listItemDetail2.setWhat(what);
 
-        listItems.add(listItemDetail2);
+        listItems4.add(listItemDetail2);
     }
 }

@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class NoticeListAdapter extends BaseAdapter {
+public class NoticeListAdapter_Frag1 extends BaseAdapter {
 
     private Context context;
     private List<Notice> noticeList;
 
-    public NoticeListAdapter(Context context, List<Notice> noticeList) {
+    public NoticeListAdapter_Frag1(Context context, List<Notice> noticeList) {
         this.context = context;
         this.noticeList = noticeList;
     }
@@ -35,11 +35,11 @@ public class NoticeListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = View.inflate(context, R.layout.layout_notice_item, null);
-        TextView notice = (TextView)convertView.findViewById(R.id.notice);
-        TextView name = (TextView)convertView.findViewById(R.id.name);
-        TextView date = (TextView)convertView.findViewById(R.id.date);
-        TextView content = (TextView)convertView.findViewById(R.id.content);
+        View v = View.inflate(context, R.layout.item_list_frag1, null);
+        TextView notice = (TextView) v.findViewById(R.id.notice);
+        TextView name = (TextView)v.findViewById(R.id.name);
+        TextView date = (TextView)v.findViewById(R.id.date);
+        TextView content = (TextView)v.findViewById(R.id.content);
 
         notice.setText(noticeList.get(position).getNotice());
         name.setText(noticeList.get(position).getName());

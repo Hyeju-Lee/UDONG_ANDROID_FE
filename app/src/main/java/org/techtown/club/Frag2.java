@@ -33,15 +33,15 @@ public class Frag2 extends Fragment{
                 {"+9000", "-8000", "2021-06-15"}, {"+3000", "-7000", "2021-08-15"}};
 
         listView = (ListView)view.findViewById(R.id.listView);
-        ArrayList<ReceiptListData> listViewData = new ArrayList<>();
+        ArrayList<ListItemDetail_Frag2> listViewData = new ArrayList<>();
         for (int i = 0; i < item.length; i++) {
-            ReceiptListData listData = new ReceiptListData(item[i][0],
+            ListItemDetail_Frag2 listData = new ListItemDetail_Frag2(item[i][0],
                     item[i][1], item[i][2]);
 
             listViewData.add(listData);
         }
 
-        ListAdapter customAdapter = new CustomListAdapter_Receipt(getContext(),listViewData);
+        ListAdapter customAdapter = new MoneyListAdapter_Frag2(getContext(),listViewData);
         listView.setAdapter(customAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

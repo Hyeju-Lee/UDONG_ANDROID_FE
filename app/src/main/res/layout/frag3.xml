@@ -26,9 +26,23 @@
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
-            <ListView
+            <Button
+                android:id="@+id/groupAddButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:text="조 추가하기" />
+
+            <LinearLayout
+                android:id="@+id/cmdArea"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/listView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="352dp" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

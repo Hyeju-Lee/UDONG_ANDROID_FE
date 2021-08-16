@@ -5,14 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomListAdapter_Receipt extends ArrayAdapter {
+public class MoneyListAdapter_Frag2 extends ArrayAdapter {
     private Context context;
     private List list;
 
@@ -22,7 +20,7 @@ public class CustomListAdapter_Receipt extends ArrayAdapter {
         public TextView useDate;
     }
 
-    public CustomListAdapter_Receipt(Context context, ArrayList list) {
+    public MoneyListAdapter_Frag2(Context context, ArrayList list) {
         super(context,0,list);
         this.context = context;
         this.list = list;
@@ -33,7 +31,7 @@ public class CustomListAdapter_Receipt extends ArrayAdapter {
         final ViewHolder viewHolder;
         if (convertview == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-            convertview = layoutInflater.inflate(R.layout.custom_listview_receipt, parent, false);
+            convertview = layoutInflater.inflate(R.layout.item_list_frag2, parent, false);
         }
 
         viewHolder = new ViewHolder();
@@ -41,7 +39,7 @@ public class CustomListAdapter_Receipt extends ArrayAdapter {
         viewHolder.minusText = (TextView)convertview.findViewById(R.id.minusCost);
         viewHolder.useDate = (TextView)convertview.findViewById(R.id.useDate);
 
-        final ReceiptListData data = (ReceiptListData)list.get(position);
+        final ListItemDetail_Frag2 data = (ListItemDetail_Frag2)list.get(position);
         viewHolder.plusText.setText(data.getPlusText());
         viewHolder.minusText.setText(data.getMinusText());
         viewHolder.useDate.setText(data.getUseDate());
