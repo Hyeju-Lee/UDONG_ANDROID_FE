@@ -1,6 +1,9 @@
-package org.techtown.club;
+package org.techtown.club.register;
 
 import android.os.Bundle;
+
+import org.techtown.club.R;
+import org.techtown.club.RegisterFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;

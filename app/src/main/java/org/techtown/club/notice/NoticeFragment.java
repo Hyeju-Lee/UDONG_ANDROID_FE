@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.notice;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +13,13 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.techtown.club.Notice;
+import org.techtown.club.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Frag1 extends Fragment {
+public class NoticeFragment extends Fragment {
     private View view;
     private FloatingActionButton floatingActionButton;
 
@@ -26,7 +29,7 @@ public class Frag1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.frag1,container, false);
+        view = inflater.inflate(R.layout.fragment_notice,container, false);
 
         noticeListView = (ListView) view.findViewById(R.id.noticeListView);
         noticeList = new ArrayList<Notice>();
@@ -42,7 +45,7 @@ public class Frag1 extends Fragment {
 
                 )
         );
-        NoticeListAdapter_Frag1 adapter = new NoticeListAdapter_Frag1(getContext(),noticeList);
+        NoticeListAdapter adapter = new NoticeListAdapter(getContext(),noticeList);
         noticeListView.setAdapter(adapter);
 
         floatingActionButton = view.findViewById(R.id.floatingActionButton2);

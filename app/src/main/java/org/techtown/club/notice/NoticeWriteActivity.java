@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.notice;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import org.techtown.club.MainActivity;
+import org.techtown.club.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.post;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +10,15 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import org.techtown.club.R;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
-public class Frag3 extends Fragment {
+public class PostFragment extends Fragment {
     private View view;
     Button groupAddButton;
     ListView listView2;
@@ -24,7 +26,7 @@ public class Frag3 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.frag3,container, false);
+        view = inflater.inflate(R.layout.fragment_post,container, false);
 
         String[][] item = {{"1조", "김수경 이혜주 김예나"}, {"2조", "김수경 이혜주 김예나"},
                 {"3조", "김수경 이혜주 김예나"}};

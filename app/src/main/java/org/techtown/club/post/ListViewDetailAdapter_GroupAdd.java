@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.post;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.techtown.club.R;
 
 import java.util.ArrayList;
 

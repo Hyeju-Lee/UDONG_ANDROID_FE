@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.post;
 
 public class ListItemDetail_Frag3 {
     public String groupTittle;

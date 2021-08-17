@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,22 +7,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import org.techtown.club.OpenClubActivity;
+import org.techtown.club.R;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RegisterActivity2 extends AppCompatActivity {
+public class JoinClubActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register2);
+        setContentView(R.layout.activity_joinclub);
 
         Button makegroupbutton = (Button) findViewById(R.id.makegroupbutton);
 
         makegroupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(RegisterActivity2.this, RegisterActivity1.class);
-                RegisterActivity2.this.startActivity(registerIntent);
+                Intent registerIntent = new Intent(JoinClubActivity.this, OpenClubActivity.class);
+                JoinClubActivity.this.startActivity(registerIntent);
             }
         });
 

@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.receipt;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,13 +11,16 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import org.techtown.club.ListItemDetail_Frag2;
+import org.techtown.club.R;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
-public class Frag2 extends Fragment{
+public class ReceiptFragment extends Fragment{
     private View view;
     Button button1;
     Button button_add;
@@ -27,7 +30,7 @@ public class Frag2 extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.frag2,container, false);
+        view = inflater.inflate(R.layout.fragment_receipt,container, false);
 
         String[][] item = {{"+3000", "-5000", "2021-05-15"}, {"+5000", "-1000", "2021-04-15"},
                 {"+9000", "-8000", "2021-06-15"}, {"+3000", "-7000", "2021-08-15"}};

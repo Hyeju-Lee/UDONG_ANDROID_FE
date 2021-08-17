@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.notice;
 
 import android.content.Context;
 import android.view.View;
@@ -6,14 +6,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.techtown.club.Notice;
+import org.techtown.club.R;
+
 import java.util.List;
 
-public class NoticeListAdapter_Frag1 extends BaseAdapter {
+public class NoticeListAdapter extends BaseAdapter {
 
     private Context context;
     private List<Notice> noticeList;
 
-    public NoticeListAdapter_Frag1(Context context, List<Notice> noticeList) {
+    public NoticeListAdapter(Context context, List<Notice> noticeList) {
         this.context = context;
         this.noticeList = noticeList;
     }
@@ -35,7 +38,7 @@ public class NoticeListAdapter_Frag1 extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = View.inflate(context, R.layout.item_list_frag1, null);
+        View v = View.inflate(context, R.layout.item_list_notice, null);
         TextView notice = (TextView) v.findViewById(R.id.notice);
         TextView name = (TextView)v.findViewById(R.id.name);
         TextView date = (TextView)v.findViewById(R.id.date);

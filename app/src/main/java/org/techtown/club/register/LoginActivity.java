@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,8 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.techtown.club.MainActivity;
+import org.techtown.club.R;
 import org.techtown.club.retrofit.RetrofitClient;
 import org.techtown.club.sendServerData.IdTokenObject;
 

@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.post;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import org.techtown.club.MainActivity;
+import org.techtown.club.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
