@@ -37,8 +37,7 @@ public class OpenClubActivity extends AppCompatActivity {
 
     Button checkBtn;
     TextView clubInfo;
-
-    public boolean check;
+    Button makeGroupBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +49,7 @@ public class OpenClubActivity extends AppCompatActivity {
         listView1 = (ListView) findViewById(R.id.listView1);
 
         groupName = findViewById(R.id.groupname);
-        groupCode = findViewById(R.id.groupcode);
+        groupCode = (EditText)findViewById(R.id.groupcode);
         groupNum = findViewById(R.id.groupnumber);
 
         clubInfo = (TextView)findViewById(R.id.clubInfo);
@@ -59,23 +58,15 @@ public class OpenClubActivity extends AppCompatActivity {
         adapter = new ListViewAdapter_openClub(OpenClubActivity.this);
         listView1.setAdapter(adapter);
 
-        String name = groupName.getText().toString();
-        int generation = Integer.parseInt(groupNum.getText().toString());
+        makeGroupBtn = findViewById(R.id.makegroupbutton2);
+
         String code = groupCode.getText().toString();
-        String info = clubInfo.getText().toString();
-
-        Club club = new Club(name, generation, info, code);
-        openClub(club);
-
+        Log.d("내용",code);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(codeCheck(info)) {
-                    //중복이라 사용 불가
-                }
-                else {
-                    //사용 가능
-                }
+                Log.d("코드",code);
+                codeCheck(code);
             }
         });
 
@@ -101,11 +92,18 @@ public class OpenClubActivity extends AppCompatActivity {
             }
         });
 
-        Button makegroupbutton2 = (Button) findViewById(R.id.makegroupbutton2);
 
-        makegroupbutton2.setOnClickListener(new View.OnClickListener() {
+        makeGroupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String name = groupName.getText().toString();
+                int generation = Integer.parseInt(groupNum.getText().toString());
+                String code = groupCode.getText().toString();
+                String info = clubInfo.getText().toString();
+
+                Club club = new Club(name, generation, info, code);
+                openClub(club);
+
                 Intent registerIntent = new Intent(OpenClubActivity.this, MainActivity.class);
                 OpenClubActivity.this.startActivity(registerIntent);
             }
@@ -133,23 +131,29 @@ public class OpenClubActivity extends AppCompatActivity {
         });
     }
 
-    private boolean codeCheck(String code){
+    public boolean check;
+    public boolean codeCheck(String code){
         Call<Boolean> call = RetrofitClient.getApiService().checkCode(code);
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                 if (!response.isSuccessful()) {
-                    Log.e("연결 비정상","error code"+response.code());
+                    Log.e("code check 연결 비정상","error code"+response.code());
                     return;
                 }
-                Log.d("성공",response.body().toString());
+                Log.d("code check성공",response.body().toString());
                 check = response.body();
                 Log.d("확인",Boolean.toString(check));
+                if (check) {
+                    Log.d("사용불가","ㅌㅌ");
+                }else {
+                    Log.d("가능","ㅇ");
+                }
             }
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                Log.e("연결 실패", t.getMessage());
+                Log.e("code check 연결 실패", t.getMessage());
             }
         });
         return check;
