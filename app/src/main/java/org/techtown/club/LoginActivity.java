@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+        /*
         Button registerButton = (Button) findViewById(R.id.registerButton);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +57,6 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
-
-
-        /*
-
 
         Button loginButton = (Button) findViewById(R.id.loginButton);
 
