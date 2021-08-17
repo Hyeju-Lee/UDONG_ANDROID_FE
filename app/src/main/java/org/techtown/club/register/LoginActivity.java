@@ -140,17 +140,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if (!response.isSuccessful()) {
-                    Log.e("연결 비정상","error code"+response.code());
+                    Log.e("연결 비정상 send token","error code"+response.code());
                     return;
                 }
                 userId = Long.parseLong(response.body());
-                Log.d("연결 성공",Long.toString(userId));
+                Log.d("연결 성공 send token",Long.toString(userId));
                 getClubList();
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Log.e("연결 실패", t.getMessage());
+                Log.e("연결 실패 send token", t.getMessage());
             }
         });
     }
@@ -161,12 +161,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!response.isSuccessful()) {
-                    Log.e("연결 비정상","error code"+response.code());
+                    Log.e("연결 비정상 get club list","error code"+response.code());
                     return;
                 }
                 try{
                     String result = response.body().string();
-                    Log.d("연결 완료", result);
+                    Log.d("연결 완료 club list", result);
                     JSONArray jsonArray = new JSONArray(result);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -182,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("연결 실패", t.getMessage());
+                Log.e("연결 실패 club list", t.getMessage());
             }
         });
     }
