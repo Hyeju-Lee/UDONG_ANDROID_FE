@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.receipt;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,17 +6,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
+
+import org.techtown.club.ListItemDetail;
+import org.techtown.club.R;
 
 import java.util.ArrayList;
 
-public class ListViewDetailAdapter_RegisterActivity1 extends BaseAdapter {
+public class ListViewDetailAdapter_MoneyAdd1 extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<ListItemDetail2> listItems = new ArrayList<>();
+    private ArrayList<ListItemDetail> listItems = new ArrayList<ListItemDetail>();
 
-    public ListViewDetailAdapter_RegisterActivity1(Context context){
+    public ListViewDetailAdapter_MoneyAdd1(Context context){
         this.mContext = context;
     }
 
@@ -41,18 +43,21 @@ public class ListViewDetailAdapter_RegisterActivity1 extends BaseAdapter {
         // item.xml 레이아웃을 inflate해서 참조획득
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.item_list_registeractivity1, parent, false);
+            convertView = inflater.inflate(R.layout.item_list_moneyadd, parent, false);
         }
 
         // item.xml 의 참조 획득
-        TextView role_name = (TextView)convertView.findViewById(R.id.role_name);
-        CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.checkBox);
+        TextView what_listitem = (TextView)convertView.findViewById(R.id.what_listitem);
+        TextView name_listitem = (TextView)convertView.findViewById(R.id.name_listitem);
+        TextView money_listitem = (TextView)convertView.findViewById(R.id.money_listitem);
         Button btn_delete = (Button)convertView.findViewById(R.id.btn_delete);
 
-        ListItemDetail2 listItemDetail2 = listItems.get(position);
+        ListItemDetail listItemDetail = listItems.get(position);
 
         // 가져온 데이터를 텍스트뷰에 입력
-        role_name.setText(listItemDetail2.getWhat());
+        what_listitem.setText(listItemDetail.getWhat());
+        name_listitem.setText(listItemDetail.getName());
+        money_listitem.setText(listItemDetail.getMoney());
 
         // 리스트 아이템 삭제
         btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -66,11 +71,13 @@ public class ListViewDetailAdapter_RegisterActivity1 extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(String what){
-        ListItemDetail2 listItemDetail2 = new ListItemDetail2();
+    public void addItem(String what, String name, String money){
+        ListItemDetail listItemDetail = new ListItemDetail();
 
-        listItemDetail2.setWhat(what);
+        listItemDetail.setWhat(what);
+        listItemDetail.setName(name);
+        listItemDetail.setMoney(money);
 
-        listItems.add(listItemDetail2);
+        listItems.add(listItemDetail);
     }
 }

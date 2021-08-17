@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.post;
 
 public class ListItemDetail2 {
     private String what;

@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.receipt;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import org.techtown.club.ListItemDetail_Frag2;
+import org.techtown.club.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,7 @@ public class MoneyListAdapter_Frag2 extends ArrayAdapter {
         final ViewHolder viewHolder;
         if (convertview == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-            convertview = layoutInflater.inflate(R.layout.item_list_frag2, parent, false);
+            convertview = layoutInflater.inflate(R.layout.item_list_receipt, parent, false);
         }
 
         viewHolder = new ViewHolder();

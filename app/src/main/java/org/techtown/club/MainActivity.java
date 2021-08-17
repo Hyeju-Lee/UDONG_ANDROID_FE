@@ -10,14 +10,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.techtown.club.notice.NoticeFragment;
+import org.techtown.club.post.PostFragment;
+import org.techtown.club.receipt.ReceiptFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private Frag1 frag1;
-    private Frag2 frag2;
-    private Frag3 frag3;
+    private NoticeFragment frag1;
+    private ReceiptFragment frag2;
+    private PostFragment frag3;
 
 
     @Override
@@ -44,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        frag1 = new Frag1();
-        frag2 = new Frag2();
-        frag3 = new Frag3();
+        frag1 = new NoticeFragment();
+        frag2 = new ReceiptFragment();
+        frag3 = new PostFragment();
         setFrag(0);
 
     }

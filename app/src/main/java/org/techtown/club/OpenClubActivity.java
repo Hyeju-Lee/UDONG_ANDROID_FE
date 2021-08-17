@@ -7,14 +7,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import org.techtown.club.register.JoinClubActivity;
+import org.techtown.club.register.ListViewAdapter_openClub;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-public class RegisterActivity1 extends AppCompatActivity {
+public class OpenClubActivity extends AppCompatActivity {
 
     ListView listView1;
-    ListViewDetailAdapter_RegisterActivity1 adapter;
+    ListViewAdapter_openClub adapter;
     ArrayList<String> listItem;
 
     EditText groupjob;
@@ -23,13 +26,13 @@ public class RegisterActivity1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register1);
+        setContentView(R.layout.activity_openclub);
 
         groupjob = findViewById(R.id.groupjob);
         jobaddbutton = findViewById(R.id.jobaddbutton);
         listView1 = (ListView) findViewById(R.id.listView1);
 
-        adapter = new ListViewDetailAdapter_RegisterActivity1(RegisterActivity1.this);
+        adapter = new ListViewAdapter_openClub(OpenClubActivity.this);
         listView1.setAdapter(adapter);
 
         jobaddbutton.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +52,8 @@ public class RegisterActivity1 extends AppCompatActivity {
         searchgroupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(RegisterActivity1.this, RegisterActivity2.class);
-                RegisterActivity1.this.startActivity(registerIntent);
+                Intent registerIntent = new Intent(OpenClubActivity.this, JoinClubActivity.class);
+                OpenClubActivity.this.startActivity(registerIntent);
             }
         });
 
@@ -59,8 +62,8 @@ public class RegisterActivity1 extends AppCompatActivity {
         makegroupbutton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(RegisterActivity1.this, MainActivity.class);
-                RegisterActivity1.this.startActivity(registerIntent);
+                Intent registerIntent = new Intent(OpenClubActivity.this, MainActivity.class);
+                OpenClubActivity.this.startActivity(registerIntent);
             }
         });
     }

@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.receipt;
 
 import android.content.ClipData;
 import android.content.Intent;
@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import org.techtown.club.MainActivity;
+import org.techtown.club.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

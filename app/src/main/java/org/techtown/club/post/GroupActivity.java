@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.post;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.techtown.club.Notice;
+import org.techtown.club.NoticeListAdapter2;
+import org.techtown.club.R;
 
 import java.util.ArrayList;
 import java.util.List;

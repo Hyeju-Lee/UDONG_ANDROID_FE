@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.receipt;
 
 
 import android.content.Context;
@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import org.techtown.club.Adapter;
+import org.techtown.club.R;
 
 import java.util.ArrayList;
 

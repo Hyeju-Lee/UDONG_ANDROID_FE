@@ -35,7 +35,7 @@ public class NoticeListAdapter2 extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = View.inflate(context, R.layout.item_list_frag1, null);
+        View v = View.inflate(context, R.layout.item_list_notice, null);
         TextView notice = (TextView) v.findViewById(R.id.notice);
         TextView name = (TextView)v.findViewById(R.id.name);
         TextView date = (TextView)v.findViewById(R.id.date);

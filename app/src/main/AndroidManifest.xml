@@ -13,21 +13,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Club.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".GroupWriteActivity"></activity>
-        <activity android:name=".groupAdd" />
-        <activity android:name=".GroupActivity" />
-        <activity android:name=".NoticeWriteActivity" />
-        <activity android:name=".MoneyAdd" />
+        <activity android:name=".post.GroupWriteActivity"></activity>
+        <activity android:name=".post.groupAdd" />
+        <activity android:name=".post.GroupActivity" />
+        <activity android:name=".notice.NoticeWriteActivity" />
+        <activity android:name=".receipt.MoneyAdd" />
         <activity
-            android:name=".DetailMoneyActivity"
+            android:name=".receipt.DetailMoneyActivity"
             android:exported="true"
             android:label="@string/title_activity_detail_money"
             android:theme="@style/Theme.Club.NoActionBar.NoActionBar" />
-        <activity android:name=".RegisterActivity2" />
-        <activity android:name=".RegisterActivity1" />
+        <activity android:name=".register.JoinClubActivity" />
+        <activity android:name=".OpenClubActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".register.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
