@@ -1,4 +1,4 @@
-package org.techtown.club;
+package org.techtown.club.register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,19 +15,43 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.techtown.club.MainActivity;
+import org.techtown.club.R;
+import org.techtown.club.retrofit.RetrofitClient;
+import org.techtown.club.sendServerData.IdTokenObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
 
+    public Long userId;
+    public List<Long> clubId;
+    public List<String> clubName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        clubId = new ArrayList<>();
+        clubName = new ArrayList<>();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.server_client_id))
@@ -110,7 +134,57 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendIdTokenToServer(String idToken) {
+        IdTokenObject idTokenObject = new IdTokenObject(idToken);
+        Call<String> call = RetrofitClient.getApiService().sendTokenToServer(idTokenObject);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상","error code"+response.code());
+                    return;
+                }
+                userId = Long.parseLong(response.body());
+                Log.d("연결 성공",Long.toString(userId));
+                getClubList();
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("연결 실패", t.getMessage());
+            }
+        });
+    }
+
+    private void getClubList() {
+        Call<ResponseBody> call = RetrofitClient.getApiService().getClubList(userId);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상","error code"+response.code());
+                    return;
+                }
+                try{
+                    String result = response.body().string();
+                    Log.d("연결 완료", result);
+                    JSONArray jsonArray = new JSONArray(result);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        clubId.add(jsonObject.getLong("id"));
+                        clubName.add(jsonObject.getString("name"));
+                        Log.d("*********clubId=",clubId.get(0).toString());
+                        Log.d("*********club name=",clubName.get(0));
+                    };
+                }catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("연결 실패", t.getMessage());
+            }
+        });
     }
 
     private void signIn() {
@@ -142,8 +216,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(@Nullable GoogleSignInAccount account) {
         if (account != null) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            String idToken = account.getIdToken();
+            sendIdTokenToServer(idToken);
+            //if (clubId.size() < 1) {
+              //  Intent intent = new Intent(this, RegisterActivity1.class);
+                //startActivity(intent);
+            //}
+            //else{
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            //}
         }
     }
 }

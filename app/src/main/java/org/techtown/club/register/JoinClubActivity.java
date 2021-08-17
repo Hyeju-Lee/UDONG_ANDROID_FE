@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import org.techtown.club.OpenClubActivity;
 import org.techtown.club.R;
 
 import androidx.appcompat.app.AppCompatActivity;
