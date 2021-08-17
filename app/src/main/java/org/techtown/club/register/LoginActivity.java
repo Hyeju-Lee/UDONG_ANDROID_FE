@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
 
-    public Long userId;
-    public List<Long> clubId;
+    public static Long userId;
+    public static List<Long> clubId;
     public List<String> clubName;
 
     @Override
@@ -218,14 +218,14 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null) {
             String idToken = account.getIdToken();
             sendIdTokenToServer(idToken);
-            //if (clubId.size() < 1) {
-              //  Intent intent = new Intent(this, RegisterActivity1.class);
-                //startActivity(intent);
-            //}
-            //else{
+            if (clubId.size() < 1) {
+                Intent intent = new Intent(this, OpenClubActivity.class);
+                startActivity(intent);
+            }
+            else{
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-            //}
+            }
         }
     }
 }
