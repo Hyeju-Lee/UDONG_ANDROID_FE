@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OpenClubActivity"
+    tools:context=".register.OpenClubActivity"
     android:layout_weight="1">
 
     <ScrollView
@@ -117,7 +117,7 @@
                             android:textColorHint="#E7D5FC" />
 
                         <Button
-                            android:id="@+id/button2"
+                            android:id="@+id/checkBtn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="중복확인"
@@ -125,6 +125,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/clubInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -231,6 +232,7 @@
                             android:textStyle="bold"
                             android:text="공지 작성 권한 ⭕"
                             android:gravity="center_horizontal" />
+
                     </LinearLayout>
 
                     <ScrollView
