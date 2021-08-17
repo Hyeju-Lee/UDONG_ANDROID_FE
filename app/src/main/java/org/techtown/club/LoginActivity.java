@@ -15,9 +15,16 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+
+import org.techtown.club.retrofit.RetrofitClient;
+import org.techtown.club.sendServerData.IdTokenObject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -83,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         //이미 로그인 된 사용자일 때
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
+        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        //updateUI(account);
     }
 
     @Override
@@ -110,7 +117,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void sendIdTokenToServer(String idToken) {
+        IdTokenObject idTokenObject = new IdTokenObject(idToken);
+        Call<String> call = RetrofitClient.getApiService().sendTokenToServer(idTokenObject);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상","error code"+response.code());
+                    return;
+                }
+                Log.d("연결 성공",response.body());
+            }
 
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.e("연결 실패", t.getMessage());
+            }
+        });
     }
 
     private void signIn() {
