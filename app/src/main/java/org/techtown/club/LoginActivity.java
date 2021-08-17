@@ -216,14 +216,14 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null) {
             String idToken = account.getIdToken();
             sendIdTokenToServer(idToken);
-            if (clubId.size() < 1) {
-                Intent intent = new Intent(this, RegisterActivity1.class);
-                startActivity(intent);
-            }
-            else{
+            //if (clubId.size() < 1) {
+              //  Intent intent = new Intent(this, RegisterActivity1.class);
+                //startActivity(intent);
+            //}
+            //else{
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-            }
+            //}
         }
     }
 }
