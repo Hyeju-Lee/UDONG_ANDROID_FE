@@ -23,5 +23,14 @@ public interface RetrofitAPI {
     Call<Long> postClub(@Body Club club);
 
     @GET("api/udong/club/clubCode/check/{clubCode}")
-    Call<Boolean> checkCode(@Path("clubCode")String clubCode);
+    Call<Boolean> checkCode(@Path("clubCode") String clubCode);
+
+    @GET("api/udong/club/clubCode/{clubCode}")
+    Call<Object> getClubInfo(@Path("clubCode") String clubCode);
+
+    @GET("api/udong/clubUser/{clubId}/{userId}")
+    Call<Long> registerUserToClub(@Path("clubId") Long clubId, @Path("userId") Long userId);
+
+    @GET("/api/udong/club/role/{clubId}")
+    Call<ResponseBody> getRoleList(@Path("clubId") Long clubId);
 }
