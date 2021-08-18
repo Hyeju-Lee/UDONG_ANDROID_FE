@@ -9,18 +9,19 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.techtown.club.MainActivity;
 import org.techtown.club.R;
 import org.techtown.club.dto.Club;
 import org.techtown.club.retrofit.RetrofitClient;
 
-import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OpenClubActivity extends AppCompatActivity {
 
@@ -37,6 +38,7 @@ public class OpenClubActivity extends AppCompatActivity {
 
     Button checkBtn;
     TextView clubInfo;
+
 
     public boolean check;
 
@@ -72,9 +74,15 @@ public class OpenClubActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(codeCheck(info)) {
                     //중복이라 사용 불가
+                    TextView textView = (TextView)findViewById(R.id.textView);
+                    textView.setText("사용할 수 없는 가입코드입니다.");
+                    textView.setVisibility(View.VISIBLE);
                 }
                 else {
                     //사용 가능
+                    TextView textView = (TextView)findViewById(R.id.textView);
+                    textView.setText("사용할 수 있는 가입코드입니다.");
+                    textView.setVisibility(View.VISIBLE);
                 }
             }
         });

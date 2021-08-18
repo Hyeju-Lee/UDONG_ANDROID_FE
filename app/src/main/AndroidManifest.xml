@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Club.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".post.GroupWriteActivity"></activity>
+        <activity android:name=".post.GroupWriteActivity" />
         <activity android:name=".post.groupAdd" />
         <activity android:name=".post.GroupActivity" />
         <activity android:name=".notice.NoticeWriteActivity" />
@@ -24,7 +24,8 @@
             android:label="@string/title_activity_detail_money"
             android:theme="@style/Theme.Club.NoActionBar.NoActionBar" />
         <activity android:name=".register.JoinClubActivity" />
-        <activity android:name=".register.OpenClubActivity" />
+        <activity android:name=".register.OpenClubActivity">
+        </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".register.RegisterActivity" />
         <activity android:name=".register.LoginActivity">
