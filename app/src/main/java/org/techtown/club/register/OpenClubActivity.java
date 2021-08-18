@@ -1,6 +1,7 @@
 package org.techtown.club.register;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,7 @@ public class OpenClubActivity extends AppCompatActivity {
     Button checkBtn;
     TextView clubInfo;
     Button makeGroupBtn;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +57,17 @@ public class OpenClubActivity extends AppCompatActivity {
         clubInfo = (TextView)findViewById(R.id.clubInfo);
         checkBtn = findViewById(R.id.checkBtn);
 
+        textView = findViewById(R.id.textView);
+
         adapter = new ListViewAdapter_openClub(OpenClubActivity.this);
         listView1.setAdapter(adapter);
 
         makeGroupBtn = findViewById(R.id.makegroupbutton2);
 
-        String code = groupCode.getText().toString();
-        Log.d("내용",code);
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("코드",code);
-                codeCheck(code);
+                codeCheck(groupCode.getText().toString());
             }
         });
 
@@ -100,12 +101,13 @@ public class OpenClubActivity extends AppCompatActivity {
                 int generation = Integer.parseInt(groupNum.getText().toString());
                 String code = groupCode.getText().toString();
                 String info = clubInfo.getText().toString();
+                //Log.d("이름 확인",name);
 
                 Club club = new Club(name, generation, info, code);
                 openClub(club);
 
-                Intent registerIntent = new Intent(OpenClubActivity.this, MainActivity.class);
-                OpenClubActivity.this.startActivity(registerIntent);
+                //Intent registerIntent = new Intent(OpenClubActivity.this, MainActivity.class);
+                //OpenClubActivity.this.startActivity(registerIntent);
             }
         });
     }
@@ -133,6 +135,7 @@ public class OpenClubActivity extends AppCompatActivity {
 
     public boolean check;
     public boolean codeCheck(String code){
+        Log.d("코드 확인",code);
         Call<Boolean> call = RetrofitClient.getApiService().checkCode(code);
         call.enqueue(new Callback<Boolean>() {
             @Override
@@ -141,14 +144,18 @@ public class OpenClubActivity extends AppCompatActivity {
                     Log.e("code check 연결 비정상","error code"+response.code());
                     return;
                 }
-                Log.d("code check성공",response.body().toString());
+                Log.d("code check성공",response.body().toString());;
                 check = response.body();
                 Log.d("확인",Boolean.toString(check));
                 if (check) {
+                    textView.setText("사용할 수 없는 가입코드입니다.");
+                    textView.setTextColor(Color.parseColor("#FF0000"));
                     Log.d("사용불가","ㅌㅌ");
                 }else {
+                    textView.setText("사용할 수 있는 가입코드입니다.");
                     Log.d("가능","ㅇ");
                 }
+                textView.setVisibility(View.VISIBLE);
             }
 
             @Override

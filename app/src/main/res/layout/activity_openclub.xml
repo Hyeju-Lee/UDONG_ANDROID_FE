@@ -96,7 +96,7 @@
                         android:layout_width="360dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:hint="동아리 기수"
+                        android:hint="동아리 기수(숫자만 입력)"
                         android:padding="10dp"
                         android:textColor="#E7D5FC"
                         android:textColorHint="#E7D5FC" />
@@ -114,7 +114,8 @@
                             android:hint="가입코드 예)solux-is-best"
                             android:padding="10dp"
                             android:textColor="#E7D5FC"
-                            android:textColorHint="#E7D5FC" />
+                            android:textColorHint="#E7D5FC"
+                            android:inputType="text"/>
 
                         <Button
                             android:id="@+id/checkBtn"
@@ -123,6 +124,15 @@
                             android:text="중복확인"
                             app:backgroundTint="#E7D5FC" />
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:text="textView"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="20dp"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:id="@+id/clubInfo"

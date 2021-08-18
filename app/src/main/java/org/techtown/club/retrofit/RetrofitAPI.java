@@ -1,8 +1,12 @@
 package org.techtown.club.retrofit;
 
 
+import android.util.Log;
+
 import org.techtown.club.dto.Club;
 import org.techtown.club.sendServerData.IdTokenObject;
+
+import java.lang.invoke.MethodHandles;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -31,6 +35,12 @@ public interface RetrofitAPI {
     @GET("api/udong/clubUser/{clubId}/{userId}")
     Call<Long> registerUserToClub(@Path("clubId") Long clubId, @Path("userId") Long userId);
 
-    @GET("/api/udong/club/role/{clubId}")
+    @GET("api/udong/club/role/{clubId}")
     Call<ResponseBody> getRoleList(@Path("clubId") Long clubId);
+
+    @GET("api/udong/clubRole/{clubId}/{roleId}")
+    Call<Long> getClubRoleId(@Path("clubId") Long clubId, @Path("roleId") Long roleId);
+
+    @GET("api/udong/clubRoleUser/{userId}/{clubRole_Id}")
+    Call<Long> setUserRole(@Path("userId") Long userId, @Path("clubRole_Id") Long clubRole_Id);
 }
