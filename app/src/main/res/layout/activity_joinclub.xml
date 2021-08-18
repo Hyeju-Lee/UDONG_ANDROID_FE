@@ -95,13 +95,24 @@
                             android:text="우동 가입코드"
                             android:textSize="20dp" />
 
-                        <SearchView
+                        <EditText
                             android:id="@+id/search"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.6"/>
+                        <ImageButton
+                            android:id="@+id/searchBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:drawable/ic_menu_search"/>
                     </LinearLayout>
 
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="138dp"
+                        android:textSize="20dp"
+                        android:id="@+id/textViewJoin"/>
 
                     <View
                         android:id="@+id/view"
@@ -143,7 +154,7 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/makegroupbutton2"
+                        android:id="@+id/makeBtn"
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

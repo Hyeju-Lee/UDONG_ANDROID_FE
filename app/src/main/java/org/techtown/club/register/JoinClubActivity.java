@@ -4,16 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.techtown.club.MainActivity;
 import org.techtown.club.R;
 import org.techtown.club.retrofit.RetrofitClient;
 
@@ -21,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
@@ -30,9 +37,13 @@ import retrofit2.Response;
 
 public class JoinClubActivity extends AppCompatActivity {
 
-    static List<String> job;
-    static HashMap<Long,String> hashMap;
-    public static Long clubid;
+    static ArrayList<String> job;
+    static HashMap<String,Object> hashMap;
+    //static Long clubid;
+    static Long roleId;
+    TextView textView;
+    Long clubid;
+    Button makeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,29 +51,90 @@ public class JoinClubActivity extends AppCompatActivity {
         setContentView(R.layout.activity_joinclub);
 
         Button makegroupbutton = (Button) findViewById(R.id.makegroupbutton);
-        SearchView searchText = (SearchView)findViewById(R.id.search);
+        EditText searchText = (EditText) findViewById(R.id.search);
+        makeBtn = (Button)findViewById(R.id.makeBtn);
+        ImageButton searchBtn = (ImageButton) findViewById(R.id.searchBtn);
 
-        String code = "dliejladlj"; //사용자가 입력한 code로 바꾸기
-        searchClubCode(code);
-
-        makegroupbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(JoinClubActivity.this, OpenClubActivity.class);
-                JoinClubActivity.this.startActivity(registerIntent);
-            }
-        });
-
+        textView = findViewById(R.id.textViewJoin);
         job = new ArrayList<>();
         hashMap = new HashMap<>();
 
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchText.getText() != null)
+                    searchClubCode(searchText.getText().toString());
+            }
+        });
+
+
+        job.add("직급을 선택하세요");
         Spinner groupSpinner = (Spinner)findViewById(R.id.spinner_group);
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, job);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, job);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         groupSpinner.setAdapter(adapter);
+        groupSpinner.setSelection(0, false);
+
+        groupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (getKey(hashMap,String.valueOf(job.get(i))) != null) roleId = Long.parseLong(getKey(hashMap,String.valueOf(job.get(i))));
+                //Toast.makeText(JoinClubActivity.this,"선택된 아이템 : "+roleId.toString(),Toast.LENGTH_SHORT).show();
+                getClubRoleId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        makeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
+    }
+
+    public void getClubRoleId() {
+        Log.d("********",roleId.toString());
+        Call<Long> call = RetrofitClient.getApiService().getClubRoleId(LoginActivity.clubId.get(0), roleId);  //////0으로 바꾸기
+        call.enqueue(new Callback<Long>() {
+            @Override
+            public void onResponse(Call<Long> call, Response<Long> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상 get clubroleid","error code"+response.code());
+                    return;
+                }
+                Log.d("연결 성공 get clubroleid",response.body().toString());
+                Long clubRoleId = response.body();
+                makeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setRole(clubRoleId);
+                        registerUser();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<Long> call, Throwable t) {
+                Log.e("연결 실패 get clubroleid", t.getMessage());
+            }
+        });
+    }
+
+    public static <K, V> K getKey(Map<K, V>map, V value) {
+        for (K key : map.keySet()) {
+            if (value.equals(map.get(key))) {
+                return key;
+            }
+        }
+        return null;
     }
 
     public void searchClubCode(String clubCode) {//클럽 코드로 동아리 정보 가져오기
@@ -79,10 +151,16 @@ public class JoinClubActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     clubid = jsonObject.getLong("id");
+                    LoginActivity.clubId.set(0, clubid);
                     String clubName = jsonObject.getString("name");
                     if (!jsonObject.isNull("info")){
-                    String clubInfo = jsonObject.getString("info");
-                    Log.d("info",clubInfo);}
+                        String clubInfo = jsonObject.getString("info");
+                        Log.d("info",clubInfo);
+                        textView.setText("          "+clubInfo);
+                    }
+                    else {
+                        textView.setText(null);
+                    }
                     int generation = jsonObject.getInt("generation");
                     Log.d("결과", "id"+clubid+"name"+clubName +"/generation"+generation);
                     getRoles();
@@ -101,7 +179,7 @@ public class JoinClubActivity extends AppCompatActivity {
 
     public void registerUser() { //user를 동아리에 가입시키는 function
         Long userId = LoginActivity.userId;
-        Long clubId = Long.parseLong("2");
+        Long clubId = LoginActivity.clubId.get(0);  //나중에 클럽 여러개 가입 가능하면 바꾸기!!!!
         Call<Long> call = RetrofitClient.getApiService().registerUserToClub(userId, clubId);
         call.enqueue(new Callback<Long>() {
             @Override
@@ -111,6 +189,8 @@ public class JoinClubActivity extends AppCompatActivity {
                     return;
                 }
                 Log.d("연결 성공 register user",response.body().toString());
+                Intent intent = new Intent(JoinClubActivity.this,MainActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -139,19 +219,38 @@ public class JoinClubActivity extends AppCompatActivity {
                         String name = jsonObject.getString("name");
                         Long id = jsonObject.getLong("id");
                         Log.d("role","name"+name+"id"+id);
-                        hashMap.put(id, name);
+                        hashMap.put(id.toString(), name);
                         job.add(name);
                     }
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("실패 get role", t.getMessage());
+            }
+        });
+    }
+
+    public void setRole(Long clubRoleId) {
+        Long userId = LoginActivity.userId;
+        Call<Long> call = RetrofitClient.getApiService().setUserRole(userId, clubRoleId);
+        call.enqueue(new Callback<Long>() {
+            @Override
+            public void onResponse(Call<Long> call, Response<Long> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상 set role","error code"+response.code());
+                    return;
+                }
+                Log.d("연결 성공 set role",response.body().toString());
+
+            }
+
+            @Override
+            public void onFailure(Call<Long> call, Throwable t) {
+                Log.e("연결 실패 set role", t.getMessage());
             }
         });
     }
