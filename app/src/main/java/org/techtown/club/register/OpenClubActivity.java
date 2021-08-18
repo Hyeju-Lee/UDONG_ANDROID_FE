@@ -1,5 +1,6 @@
 package org.techtown.club.register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.techtown.club.MainActivity;
+import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
 import org.techtown.club.dto.Club;
 import org.techtown.club.retrofit.RetrofitClient;
@@ -41,11 +43,13 @@ public class OpenClubActivity extends AppCompatActivity {
     TextView clubInfo;
     Button makeGroupBtn;
     TextView textView;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_openclub);
+        context = this;
 
         groupjob = findViewById(R.id.groupjob);
         jobaddbutton = findViewById(R.id.jobaddbutton);
@@ -122,9 +126,9 @@ public class OpenClubActivity extends AppCompatActivity {
                     Log.e("club 연결 비정상","error code"+response.code());
                     return;
                 }
-                List<Long> clubId = LoginActivity.clubId;
-                clubId.add(response.body());
-                Log.d("클럽 연결 완료",clubId.get(0).toString());
+                Long clubId = PreferenceManager.getLong(context,"clubId");
+                PreferenceManager.setLong(context,"clubId",response.body());
+                String log = Long.toString(PreferenceManager.getLong(context,"clubId"));
             }
 
             @Override

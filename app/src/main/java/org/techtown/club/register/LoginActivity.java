@@ -1,6 +1,8 @@
 package org.techtown.club.register;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.club.MainActivity;
+import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
 import org.techtown.club.retrofit.RetrofitClient;
 import org.techtown.club.sendServerData.IdTokenObject;
@@ -40,16 +43,15 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
 
-    public Long userId;
-    static List<Long> clubId;
     public List<String> clubName;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mContext = this;
 
-        clubId = new ArrayList<>();
         clubName = new ArrayList<>();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -142,7 +144,8 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("연결 비정상 send token","error code"+response.code());
                     return;
                 }
-                userId = Long.parseLong(response.body());
+                Long userId = Long.parseLong(response.body());
+                PreferenceManager.setLong(mContext, "userId", userId);
                 Log.d("연결 성공 send token",Long.toString(userId));
                 getClubList();
             }
@@ -155,6 +158,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void getClubList() {
+        Long userId = PreferenceManager.getLong(mContext,"userId");
         Call<ResponseBody> call = RetrofitClient.getApiService().getClubList(userId);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -169,9 +173,10 @@ public class LoginActivity extends AppCompatActivity {
                     JSONArray jsonArray = new JSONArray(result);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        clubId.add(jsonObject.getLong("id"));
+                        PreferenceManager.setLong(mContext,"clubId",jsonObject.getLong("id"));
                         clubName.add(jsonObject.getString("name"));
-                        Log.d("*********clubId=",clubId.get(0).toString());
+                        String cl = Long.toString(PreferenceManager.getLong(mContext,"clubId"));
+                        Log.d("*********clubId=",cl);
                         Log.d("*********club name=",clubName.get(0));
                     };
                 }catch (IOException | JSONException e) {
@@ -217,13 +222,13 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null) {
             String idToken = account.getIdToken();
             sendIdTokenToServer(idToken);
-            //if (clubId.size() < 1) {
-              //  Intent intent = new Intent(this, RegisterActivity1.class);
-                //startActivity(intent);
+            //if (PreferenceManager.getLong(mContext,"clubId") == -1L) {
+                Intent intent = new Intent(this, OpenClubActivity.class);
+                startActivity(intent);
             //}
             //else{
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+              //  Intent intent = new Intent(this, MainActivity.class);
+                //startActivity(intent);
             //}
         }
     }

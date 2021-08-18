@@ -1,5 +1,6 @@
 package org.techtown.club.register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.club.MainActivity;
+import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
 import org.techtown.club.retrofit.RetrofitClient;
 
@@ -44,11 +46,13 @@ public class JoinClubActivity extends AppCompatActivity {
     TextView textView;
     Long clubid;
     Button makeBtn;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joinclub);
+        mContext = this;
 
         Button makegroupbutton = (Button) findViewById(R.id.makegroupbutton);
         EditText searchText = (EditText) findViewById(R.id.search);
@@ -102,7 +106,8 @@ public class JoinClubActivity extends AppCompatActivity {
 
     public void getClubRoleId() {
         Log.d("********",roleId.toString());
-        Call<Long> call = RetrofitClient.getApiService().getClubRoleId(LoginActivity.clubId.get(0), roleId);  //////0으로 바꾸기
+        Call<Long> call = RetrofitClient.getApiService().getClubRoleId(
+                PreferenceManager.getLong(mContext,"clubId"), roleId);
         call.enqueue(new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
@@ -151,7 +156,7 @@ public class JoinClubActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
                     clubid = jsonObject.getLong("id");
-                    LoginActivity.clubId.set(0, clubid);
+                    PreferenceManager.setLong(mContext, "clubId", clubid);
                     String clubName = jsonObject.getString("name");
                     if (!jsonObject.isNull("info")){
                         String clubInfo = jsonObject.getString("info");
@@ -178,8 +183,8 @@ public class JoinClubActivity extends AppCompatActivity {
     }
 
     public void registerUser() { //user를 동아리에 가입시키는 function
-        Long userId = LoginActivity.userId;
-        Long clubId = LoginActivity.clubId.get(0);  //나중에 클럽 여러개 가입 가능하면 바꾸기!!!!
+        Long userId = PreferenceManager.getLong(mContext,"userId");
+        Long clubId = PreferenceManager.getLong(mContext, "clubId"); //나중에 클럽 여러개 가입 가능하면 바꾸기!!!!
         Call<Long> call = RetrofitClient.getApiService().registerUserToClub(userId, clubId);
         call.enqueue(new Callback<Long>() {
             @Override
@@ -235,7 +240,7 @@ public class JoinClubActivity extends AppCompatActivity {
     }
 
     public void setRole(Long clubRoleId) {
-        Long userId = LoginActivity.userId;
+        Long userId = PreferenceManager.getLong(mContext, "userId");
         Call<Long> call = RetrofitClient.getApiService().setUserRole(userId, clubRoleId);
         call.enqueue(new Callback<Long>() {
             @Override
