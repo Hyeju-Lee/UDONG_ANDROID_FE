@@ -1,6 +1,8 @@
 package org.techtown.club.register;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
+import org.techtown.club.PreferenceManager;
+import org.techtown.club.dto.Role;
 import org.techtown.club.post.ListItemDetail2;
 import org.techtown.club.R;
 
@@ -57,11 +63,26 @@ public class ListViewAdapter_openClub extends BaseAdapter {
         // 가져온 데이터를 텍스트뷰에 입력
         role_name.setText(listItemDetail2.getWhat());
 
+        String name = listItemDetail2.getWhat();
+        boolean notice_auth = checkBox.isChecked();
+
+        PreferenceManager.setString(parent.getContext(),"roleName",name);
+        PreferenceManager.setBoolean(parent.getContext(),"auth",notice_auth);
+
+       /* SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(roles);
+        Log.d("josnjlasf하라어밎ㄷ",json);
+        editor.putString("roleArray",json);
+        editor.commit();
+*/
         // 리스트 아이템 삭제
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listItems.remove(position);
+                PreferenceManager.setInt(parent.getContext(),"position",position);
                 notifyDataSetChanged();
             }
         });

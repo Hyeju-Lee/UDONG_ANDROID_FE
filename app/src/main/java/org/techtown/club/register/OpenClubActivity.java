@@ -2,14 +2,19 @@ package org.techtown.club.register;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +22,10 @@ import org.techtown.club.MainActivity;
 import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
 import org.techtown.club.dto.Club;
+import org.techtown.club.dto.Role;
 import org.techtown.club.retrofit.RetrofitClient;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,12 +51,14 @@ public class OpenClubActivity extends AppCompatActivity {
     Button makeGroupBtn;
     TextView textView;
     private Context context;
+    List<Role> roles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_openclub);
         context = this;
+        roles = new ArrayList<>();
 
         groupjob = findViewById(R.id.groupjob);
         jobaddbutton = findViewById(R.id.jobaddbutton);
@@ -79,10 +88,12 @@ public class OpenClubActivity extends AppCompatActivity {
         jobaddbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 adapter.addItem(groupjob.getText().toString());
                 adapter.notifyDataSetChanged(); // 변경되었음을 어답터에 알려준다.
                 groupjob.setText("");
+                String roleName = PreferenceManager.getString(context,"roleName");
+                boolean auth = PreferenceManager.getBoolean(context, "auth");
+                roles.add(new Role(roleName, auth));
             }
         });
 
@@ -106,15 +117,35 @@ public class OpenClubActivity extends AppCompatActivity {
                 int generation = Integer.parseInt(groupNum.getText().toString());
                 String code = groupCode.getText().toString();
                 String info = clubInfo.getText().toString();
-                //Log.d("이름 확인",name);
+                Log.d("이름 확인",name+code+info+generation);
+                String roleName = PreferenceManager.getString(context,"roleName");
+                boolean auth = PreferenceManager.getBoolean(context, "auth");
+                roles.add(new Role(roleName, auth));
 
-                Club club = new Club(name, generation, info, code);
-                openClub(club);
+                for (int i = 0; i < roles.size(); i++) { //1번부터 쓰기
+                    Log.d("role이름",roles.get(i).getName());
+                }
+
+                //Club club = new Club(name, generation, info, code);
+                //openClub(club);
+               // ArrayList<Role> roles = readRoles();
+               // Log.d("role 확인!!!", roles.get(0).getName());
 
                 //Intent registerIntent = new Intent(OpenClubActivity.this, MainActivity.class);
                 //OpenClubActivity.this.startActivity(registerIntent);
             }
         });
+    }
+
+    public ArrayList<Role> readRoles() {
+        SharedPreferences sharedPreferences = android.preference.PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("roleArray","");
+        Log.d("json",json);
+        Type type = new TypeToken<ArrayList<Role>>(){}.getType();
+        ArrayList<Role> arrayList = gson.fromJson(json, type);
+        return arrayList;
     }
 
     public void openClub(Club club) {
