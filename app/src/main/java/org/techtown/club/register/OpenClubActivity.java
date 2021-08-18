@@ -67,19 +67,17 @@ public class OpenClubActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("코드",code);
-                codeCheck(code);
-                if(codeCheck(info)) {
+                boolean success = codeCheck(code);
+                TextView textView = (TextView)findViewById(R.id.textView);
+                if(success) {
                     //중복이라 사용 불가
-                    TextView textView = (TextView)findViewById(R.id.textView);
                     textView.setText("사용할 수 없는 가입코드입니다.");
-                    textView.setVisibility(View.VISIBLE);
                 }
                 else {
                     //사용 가능
-                    TextView textView = (TextView)findViewById(R.id.textView);
                     textView.setText("사용할 수 있는 가입코드입니다.");
-                    textView.setVisibility(View.VISIBLE);
                 }
+                textView.setVisibility(View.VISIBLE);
             }
         });
 
@@ -105,7 +103,6 @@ public class OpenClubActivity extends AppCompatActivity {
             }
         });
 
-        Button makegroupbutton2 = (Button) findViewById(R.id.makegroupbutton2);
 
         makeGroupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
