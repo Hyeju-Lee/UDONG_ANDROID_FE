@@ -10,18 +10,19 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.techtown.club.MainActivity;
 import org.techtown.club.R;
 import org.techtown.club.dto.Club;
 import org.techtown.club.retrofit.RetrofitClient;
 
-import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OpenClubActivity extends AppCompatActivity {
 

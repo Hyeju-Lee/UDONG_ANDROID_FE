@@ -96,7 +96,8 @@
                         android:layout_width="360dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:hint="동아리 기수(숫자만 입력)"
+                        android:hint="동아리 기수(숫자만 입력)"  
+                        android:inputType="number"
                         android:padding="10dp"
                         android:textColor="#E7D5FC"
                         android:textColorHint="#E7D5FC" />

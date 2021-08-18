@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -14,7 +17,6 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,9 +30,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,8 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
 
-    public static Long userId;
-    public static List<Long> clubId;
+    public Long userId;
+    static List<Long> clubId;
     public List<String> clubName;
 
     @Override
@@ -70,13 +69,13 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
-        /*Button registerButton = (Button) findViewById(R.id.registerButton);
+/*
+        Button registerButton = (Button) findViewById(R.id.registerButton);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(LoginActivity.this, welcomegroupActivity.class);
+                Intent registerIntent = new Intent(LoginActivity.this, OpenClubActivity.class);
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
@@ -218,14 +217,14 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null) {
             String idToken = account.getIdToken();
             sendIdTokenToServer(idToken);
-            if (clubId.size() < 1) {
-                Intent intent = new Intent(this, OpenClubActivity.class);
-                startActivity(intent);
-            }
-            else{
+            //if (clubId.size() < 1) {
+              //  Intent intent = new Intent(this, RegisterActivity1.class);
+                //startActivity(intent);
+            //}
+            //else{
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-            }
+            //}
         }
     }
 }
