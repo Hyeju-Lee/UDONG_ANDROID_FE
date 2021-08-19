@@ -78,4 +78,8 @@ public class ListViewDetailAdapter_MoneyAdd2 extends BaseAdapter {
 
         listItems2.add(listItemDetail2);
     }
+
+    public void clear() {
+        listItems2.clear();
+    }
 }

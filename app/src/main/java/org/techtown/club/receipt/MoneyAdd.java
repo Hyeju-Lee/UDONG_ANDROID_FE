@@ -122,6 +122,7 @@ public class MoneyAdd extends AppCompatActivity {
                 }
                 postReceipt();
                 adapter.clear();
+                adapter2.clear();
                 finish();
             }
         });
