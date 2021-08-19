@@ -95,13 +95,6 @@ public class JoinClubActivity extends AppCompatActivity {
             }
         });
 
-        makeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(JoinClubActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
     }
@@ -124,6 +117,8 @@ public class JoinClubActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         setRole(clubRoleId);
                         registerUser();
+                        Intent intent = new Intent(JoinClubActivity.this,MainActivity.class);
+                        startActivity(intent);
                     }
                 });
             }
