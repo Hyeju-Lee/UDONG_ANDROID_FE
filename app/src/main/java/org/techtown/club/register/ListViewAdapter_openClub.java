@@ -66,17 +66,15 @@ public class ListViewAdapter_openClub extends BaseAdapter {
         String name = listItemDetail2.getWhat();
         boolean notice_auth = checkBox.isChecked();
 
-        PreferenceManager.setString(parent.getContext(),"roleName",name);
-        PreferenceManager.setBoolean(parent.getContext(),"auth",notice_auth);
-
-       /* SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(parent.getContext());
+        Role roles = new Role(name, notice_auth);
+        SharedPreferences preferences = android.preference.PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor = preferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(roles);
-        Log.d("josnjlasf하라어밎ㄷ",json);
-        editor.putString("roleArray",json);
+        Log.d("json확인",json);
+        editor.putString("role",json);
         editor.commit();
-*/
+
         // 리스트 아이템 삭제
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override

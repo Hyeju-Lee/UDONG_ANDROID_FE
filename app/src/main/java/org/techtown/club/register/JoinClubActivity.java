@@ -83,7 +83,8 @@ public class JoinClubActivity extends AppCompatActivity {
         groupSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (getKey(hashMap,String.valueOf(job.get(i))) != null) roleId = Long.parseLong(getKey(hashMap,String.valueOf(job.get(i))));
+                if (getKey(hashMap,String.valueOf(job.get(i))) != null)
+                    roleId = Long.parseLong(getKey(hashMap,String.valueOf(job.get(i))));
                 //Toast.makeText(JoinClubActivity.this,"선택된 아이템 : "+roleId.toString(),Toast.LENGTH_SHORT).show();
                 getClubRoleId();
             }
@@ -97,7 +98,8 @@ public class JoinClubActivity extends AppCompatActivity {
         makeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(JoinClubActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -185,7 +187,7 @@ public class JoinClubActivity extends AppCompatActivity {
     public void registerUser() { //user를 동아리에 가입시키는 function
         Long userId = PreferenceManager.getLong(mContext,"userId");
         Long clubId = PreferenceManager.getLong(mContext, "clubId"); //나중에 클럽 여러개 가입 가능하면 바꾸기!!!!
-        Call<Long> call = RetrofitClient.getApiService().registerUserToClub(userId, clubId);
+        Call<Long> call = RetrofitClient.getApiService().registerUserToClub(clubId,userId);
         call.enqueue(new Callback<Long>() {
             @Override
             public void onResponse(Call<Long> call, Response<Long> response) {
@@ -194,8 +196,6 @@ public class JoinClubActivity extends AppCompatActivity {
                     return;
                 }
                 Log.d("연결 성공 register user",response.body().toString());
-                Intent intent = new Intent(JoinClubActivity.this,MainActivity.class);
-                startActivity(intent);
             }
 
             @Override

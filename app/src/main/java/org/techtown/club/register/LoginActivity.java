@@ -222,14 +222,14 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null) {
             String idToken = account.getIdToken();
             sendIdTokenToServer(idToken);
-            //f (PreferenceManager.getLong(mContext,"clubId") == -1L) {
+            if (PreferenceManager.getLong(mContext,"clubId") == -1L) {
                 Intent intent = new Intent(this, OpenClubActivity.class);
                 startActivity(intent);
-            //}
-            //else{
-              //  Intent intent = new Intent(this, MainActivity.class);
-                //startActivity(intent);
-            //}
+            }
+            else{
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }
