@@ -21,10 +21,12 @@ import org.json.JSONObject;
 import org.techtown.club.Adapter;
 import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
+import org.techtown.club.dto.DetailMoneyDto;
 import org.techtown.club.retrofit.RetrofitClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class DetailMoneyActivity extends AppCompatActivity {
@@ -33,19 +35,22 @@ public class DetailMoneyActivity extends AppCompatActivity {
     private ListView mListView1;
     private Adapter adapter1;
 
-    String[][] item = new String[][]{
+    /*String[][] item = new String[][]{
             {"지각","S", "+2000"}, {"지각", "A", "+2000"}, {"지각", "C", "+2000"},
          {"미제출", "A", "+2000"}, {"미흡제출", "D", "+3000"}, {"미흡제출", "Z", "+3000"}, {"지출", "10조 강의 구매", "-30000"}
-    };
+    };*/
 
     private ArrayList<String>tmp1;
     private ArrayList<String>tmp2;
     private ArrayList<String>tmp3;
+
+    ArrayList<DetailMoneyDto> detail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // ... 코드 계속
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_money);
+        detail = new ArrayList<>();
         this.mContext1 = getApplicationContext();
         this.mContext1 = getApplicationContext();
         mListView1 = (ListView) findViewById(R.id.listView1);
@@ -55,15 +60,6 @@ public class DetailMoneyActivity extends AppCompatActivity {
         tmp1 = new ArrayList<>();
         tmp2 = new ArrayList<>();
         tmp3 = new ArrayList<>();
-        for (int i=0; i<item.length; i++) {
-            tmp1.add(item[i][0]);
-            tmp2.add(item[i][1]);
-            tmp3.add(item[i][2]);
-        }
-
-
-        adapter1 = new Adapter(mContext1, tmp1, tmp2, tmp3);
-        mListView1.setAdapter(adapter1);
 //        adapter2 = new Adapter(mContext2, tmp2);
 //        mListView1.setAdapter(adapter2);
 //        adapter3 = new Adapter(mContext3, tmp3);
@@ -73,8 +69,7 @@ public class DetailMoneyActivity extends AppCompatActivity {
 
     public void getOnlyReceiptList() {
         String useDate = PreferenceManager.getString(mContext1, "useDate");
-        Log.d("check 유즈 데이트",useDate
-        );
+        Log.d("check 유즈 데이트",useDate);
         Long clubId = PreferenceManager.getLong(mContext1,"clubId");
         Call<ResponseBody> call = RetrofitClient.getApiService().getReceiptList(clubId, useDate);
         call.enqueue(new Callback<ResponseBody>() {
@@ -91,8 +86,21 @@ public class DetailMoneyActivity extends AppCompatActivity {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         String cost = jsonObject.getString("cost");
-
+                        String title = jsonObject.getString("title");
+                        String content = jsonObject.getString("content");
+                        DetailMoneyDto dto = new DetailMoneyDto(title, content, cost);
+                        detail.add(dto);
                     }
+                    Collections.sort(detail);
+                    for (int i=0; i<detail.size(); i++) {
+                        tmp1.add(detail.get(i).getTitle());
+                        tmp2.add(detail.get(i).getContent());
+                        tmp3.add(detail.get(i).getCost());
+                    }
+
+
+                    adapter1 = new Adapter(mContext1, tmp1, tmp2, tmp3);
+                    mListView1.setAdapter(adapter1);
                 } catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
