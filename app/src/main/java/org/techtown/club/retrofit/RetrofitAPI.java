@@ -4,7 +4,9 @@ package org.techtown.club.retrofit;
 import android.util.Log;
 
 import org.techtown.club.dto.Club;
+import org.techtown.club.dto.Notice;
 import org.techtown.club.dto.Role;
+import org.techtown.club.register.LoginActivity;
 import org.techtown.club.sendServerData.IdTokenObject;
 
 import java.lang.invoke.MethodHandles;
@@ -48,4 +50,13 @@ public interface RetrofitAPI {
     @POST("api/udong/clubRole/{clubId}")
     Call<Long> addLeaderRole(@Path("clubId") Long clubId, @Body Role role);
 
+    @GET("api/udong/user/clubRole/{userId}/{clubId}")
+    Call<Object> getUserRole(@Path("userId")Long userId, @Path("clubId")Long clubId);
+
+    @POST("api/udong/notice/{club_id}/{userId}")
+    Call<Long> postNotice(@Path("club_id")Long club_id, @Path("userId")Long userId,
+                          @Body Notice notice);
+
+    @GET("api/udong/club/notice/{clubId}")
+    Call<ResponseBody> getNotice(@Path("clubId")Long clubId);
 }

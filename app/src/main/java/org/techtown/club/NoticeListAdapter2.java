@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.techtown.club.dto.Notice;
+
 import java.util.List;
 
 public class NoticeListAdapter2 extends BaseAdapter {
@@ -41,12 +43,12 @@ public class NoticeListAdapter2 extends BaseAdapter {
         TextView date = (TextView)v.findViewById(R.id.date);
         TextView content = (TextView)v.findViewById(R.id.content);
 
-        notice.setText(noticeList.get(position).getNotice());
-        name.setText(noticeList.get(position).getName());
-        date.setText(noticeList.get(position).getDate());
-        content.setText(noticeList.get(position).getContent());
+        //notice.setText(noticeList.get(position).getNotice());
+        //name.setText(noticeList.get(position).getName());
+        //date.setText(noticeList.get(position).getDate());
+        //content.setText(noticeList.get(position).getContent());
 
-        v.setTag(noticeList.get(position).getNotice());
+        //v.setTag(noticeList.get(position).getNotice());
         return v;
     }
 }

@@ -1,25 +1,24 @@
-package org.techtown.club;
+package org.techtown.club.dto;
 
-public class Notice {
-
-    private String notice;
+public class NoticeResponse {
+    private String title;
     private String name;
     private String date;
     private String content;
 
-    public Notice(String notice, String name, String date, String content) {
-        this.notice = notice;
+    public NoticeResponse(String title, String name, String date, String content) {
+        this.title = title;
         this.name = name;
         this.date = date;
         this.content = content;
     }
 
-    public String getNotice() {
-        return notice;
+    public String getTitle() {
+        return title;
     }
 
-    public void setNotice(String notice) {
-        this.notice = notice;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getName() {
@@ -45,5 +44,4 @@ public class Notice {
     public void setContent(String content) {
         this.content = content;
     }
-
 }

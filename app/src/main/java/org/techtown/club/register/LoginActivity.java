@@ -178,7 +178,15 @@ public class LoginActivity extends AppCompatActivity {
                         String cl = Long.toString(PreferenceManager.getLong(mContext,"clubId"));
                         Log.d("*********clubId=",cl);
                         Log.d("*********club name=",clubName.get(0));
-                    };
+                    }
+                    if (PreferenceManager.getLong(mContext,"clubId") == -1L) {
+                        Intent intent = new Intent(mContext, OpenClubActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(mContext, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }catch (IOException | JSONException e) {
                     e.printStackTrace();
                 }
@@ -222,14 +230,6 @@ public class LoginActivity extends AppCompatActivity {
         if (account != null) {
             String idToken = account.getIdToken();
             sendIdTokenToServer(idToken);
-            if (PreferenceManager.getLong(mContext,"clubId") == -1L) {
-                Intent intent = new Intent(this, OpenClubActivity.class);
-                startActivity(intent);
-            }
-            else{
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            }
         }
     }
 }
