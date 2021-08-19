@@ -5,14 +5,25 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.techtown.club.Adapter;
+import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
+import org.techtown.club.retrofit.RetrofitClient;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -38,6 +49,7 @@ public class DetailMoneyActivity extends AppCompatActivity {
         this.mContext1 = getApplicationContext();
         this.mContext1 = getApplicationContext();
         mListView1 = (ListView) findViewById(R.id.listView1);
+        getOnlyReceiptList();
 
 
         tmp1 = new ArrayList<>();
@@ -56,6 +68,41 @@ public class DetailMoneyActivity extends AppCompatActivity {
 //        mListView1.setAdapter(adapter2);
 //        adapter3 = new Adapter(mContext3, tmp3);
 //        mListView1.setAdapter(adapter3);
+
+    }
+
+    public void getOnlyReceiptList() {
+        String useDate = PreferenceManager.getString(mContext1, "useDate");
+        Log.d("check 유즈 데이트",useDate
+        );
+        Long clubId = PreferenceManager.getLong(mContext1,"clubId");
+        Call<ResponseBody> call = RetrofitClient.getApiService().getReceiptList(clubId, useDate);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상 get receipt list","error code"+response.code());
+                    return;
+                }
+                try {
+                    String result = response.body().string();
+                    Log.d("연결완료 get receipt list",result);
+                    JSONArray jsonArray = new JSONArray(result);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String cost = jsonObject.getString("cost");
+
+                    }
+                } catch (IOException | JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("연결 실패 get receipt list",t.getMessage());
+            }
+        });
 
     }
 

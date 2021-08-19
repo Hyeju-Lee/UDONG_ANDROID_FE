@@ -8,14 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.techtown.club.ListItemDetail;
 import org.techtown.club.R;
 
 import java.util.ArrayList;
 
 public class ListViewDetailAdapter_MoneyAdd2 extends BaseAdapter {
     private Context mContext2;
-    private ArrayList<ListItemDetail> listItems2 = new ArrayList<ListItemDetail>();
+    public static ArrayList<ListItemDetail> listItems2 = new ArrayList<ListItemDetail>();
 
     public ListViewDetailAdapter_MoneyAdd2(Context context2){
         this.mContext2 = context2;

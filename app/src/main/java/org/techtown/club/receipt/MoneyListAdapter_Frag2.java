@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.techtown.club.ListItemDetail_Frag2;
 import org.techtown.club.R;
 
 import java.util.ArrayList;

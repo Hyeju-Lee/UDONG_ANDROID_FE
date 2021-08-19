@@ -108,7 +108,7 @@ public class NoticeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Log.d("연결 실패 get notice",t.getMessage());
             }
         });
     }

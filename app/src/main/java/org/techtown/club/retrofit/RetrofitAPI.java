@@ -5,11 +5,13 @@ import android.util.Log;
 
 import org.techtown.club.dto.Club;
 import org.techtown.club.dto.Notice;
+import org.techtown.club.dto.Receipt;
 import org.techtown.club.dto.Role;
 import org.techtown.club.register.LoginActivity;
 import org.techtown.club.sendServerData.IdTokenObject;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -59,4 +61,14 @@ public interface RetrofitAPI {
 
     @GET("api/udong/club/notice/{clubId}")
     Call<ResponseBody> getNotice(@Path("clubId")Long clubId);
+
+    @POST("api/udong/receipt/{club_id}/{userId}")
+    Call<Void> postReceipt(@Path("club_id")Long club_id, @Path("userId")Long userId,
+                           @Body List<Receipt> receipts);
+
+    @GET("api/udong/club/{id}")
+    Call<Object> getClub(@Path("id")Long id);
+
+    @GET("api/udong/receipt/useDate/{clubId}/{useDate}")
+    Call<ResponseBody> getReceiptList(@Path("clubId")Long clubId, @Path("useDate")String useDate);
 }

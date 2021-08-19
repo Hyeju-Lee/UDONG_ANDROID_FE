@@ -1,10 +1,12 @@
 package org.techtown.club.receipt;
 
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,10 +14,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.techtown.club.MainActivity;
+import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
+import org.techtown.club.dto.Receipt;
+import org.techtown.club.retrofit.RetrofitClient;
+
+import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.fragment.app.FragmentManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MoneyAdd extends AppCompatActivity {
@@ -35,27 +45,36 @@ public class MoneyAdd extends AppCompatActivity {
     EditText money2;
     Button addButton2;
 
-    Button addButton3;
+    /*Button addButton3;
 
     ImageView imageView1;
     ImageView imageView2;
     ImageView imageView3;
     ImageView imageView4;
-    ImageView imageView5;
+    ImageView imageView5;*/
 
     Button TotalMoneyButton;
+    EditText dateEditText;
+
+    String useDate;
 
     final int PICTURE_REQUEST_CODE = 100;
+    ArrayList<Receipt> receipts;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_money_add);
+        mContext = this;
+
+        dateEditText = findViewById(R.id.editTextDate);
+        receipts = new ArrayList<>();
 
         what = findViewById(R.id.what);
         name = findViewById(R.id.name);
         money = findViewById(R.id.money);
-        addButton = findViewById(R.id.addButton);
+        addButton = findViewById(R.id.addButton); //수입 + 버튼
         listView1 = (ListView) findViewById(R.id.listView1);
 
         what2 = findViewById(R.id.what2);
@@ -63,14 +82,6 @@ public class MoneyAdd extends AppCompatActivity {
         money2 = findViewById(R.id.money2);
         addButton2 = findViewById(R.id.addButton2);
         listView2 = (ListView) findViewById(R.id.listView2);
-
-        addButton3 = findViewById(R.id.addButton3);
-
-        imageView1 = (ImageView)findViewById(R.id.image1);
-        imageView2 = (ImageView)findViewById(R.id.image2);
-        imageView3 = (ImageView)findViewById(R.id.image3);
-        imageView4 = (ImageView)findViewById(R.id.image4);
-        imageView5 = (ImageView)findViewById(R.id.image5);
 
 
         adapter = new ListViewDetailAdapter_MoneyAdd1(MoneyAdd.this);
@@ -83,15 +94,41 @@ public class MoneyAdd extends AppCompatActivity {
         TotalMoneyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(MoneyAdd.this, MainActivity.class);
-                MoneyAdd.this.startActivity(registerIntent);
+                for (int i = 0; i < ListViewDetailAdapter_MoneyAdd1.listItems.size(); i++) {
+                    ListItemDetail listItemDetail = ListViewDetailAdapter_MoneyAdd1.listItems.get(i);
+                    String cost = listItemDetail.getMoney();
+                    String title = listItemDetail.getWhat();
+                    String content = listItemDetail.getName();
+                    useDate = dateEditText.getText().toString();
+                    Log.d("확인", cost + title + content + useDate);
+                    Receipt receipt = new Receipt("+" + cost, title, content, useDate);
+                    receipts.add(receipt);
+                    Log.d("수입확인", content);
+                }
+                for (int i = 0; i < ListViewDetailAdapter_MoneyAdd2.listItems2.size(); i++) {
+                    ListItemDetail listItemDetail = ListViewDetailAdapter_MoneyAdd2.listItems2.get(i);
+                    String cost = listItemDetail.getMoney();
+                    String title = listItemDetail.getWhat();
+                    String content = listItemDetail.getName();
+                    useDate = dateEditText.getText().toString();
+                    Log.d("확인", cost + title + content + useDate);
+                    Receipt receipt = new Receipt("-" + cost, title, content, useDate);
+                    receipts.add(receipt);
+                    Log.d("지출확인", content);
+                }
+                for (int i = 0; i < receipts.size(); i++) {
+                    Receipt receipt = receipts.get(i);
+                    Log.d("receipts확인", receipts.get(i).getContent());
+                }
+                postReceipt();
+                adapter.clear();
+                finish();
             }
         });
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 adapter.addItem(what.getText().toString(), name.getText().toString(), money.getText().toString());
                 adapter.notifyDataSetChanged(); // 변경되었음을 어답터에 알려준다.
                 what.setText("");
@@ -112,7 +149,7 @@ public class MoneyAdd extends AppCompatActivity {
             }
         });
 
-        addButton3.setOnClickListener(new View.OnClickListener() {
+        /*addButton3.setOnClickListener(new View.OnClickListener() {
             private int RequestCode;
 
             @Override //이미지 불러오기기(갤러리 접근)
@@ -123,14 +160,38 @@ public class MoneyAdd extends AppCompatActivity {
                 intent.setType("image/*");
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"),  PICTURE_REQUEST_CODE);
             }
-        });
+        });*/
     }
 
-    @Override
+    public void postReceipt() {
+        Long clubId = PreferenceManager.getLong(mContext, "clubId");
+        Long userId = PreferenceManager.getLong(mContext, "userId");
+        Call<Void> call = RetrofitClient.getApiService().postReceipt(clubId, userId, receipts);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상 receipt", "error code" + response.code());
+                    return;
+                }
+                Log.d("연결 성공 receipt", "d");
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("연결 실패 receipt", t.getMessage());
+            }
+        });
+    }
+}
+
+
+
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICTURE_REQUEST_CODE)
+        /*if(requestCode == PICTURE_REQUEST_CODE)
         {
             if (resultCode == RESULT_OK)
             {
@@ -182,4 +243,4 @@ public class MoneyAdd extends AppCompatActivity {
         }
 
     }
-}
+}*/

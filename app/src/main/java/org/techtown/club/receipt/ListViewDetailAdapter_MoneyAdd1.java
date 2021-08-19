@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.techtown.club.ListItemDetail;
 import org.techtown.club.R;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class ListViewDetailAdapter_MoneyAdd1 extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<ListItemDetail> listItems = new ArrayList<ListItemDetail>();
+    public static ArrayList<ListItemDetail> listItems = new ArrayList<ListItemDetail>();
 
     public ListViewDetailAdapter_MoneyAdd1(Context context){
         this.mContext = context;
@@ -79,5 +78,9 @@ public class ListViewDetailAdapter_MoneyAdd1 extends BaseAdapter {
         listItemDetail.setMoney(money);
 
         listItems.add(listItemDetail);
+    }
+
+    public void clear() {
+        listItems.clear();
     }
 }
