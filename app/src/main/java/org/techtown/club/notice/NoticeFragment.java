@@ -139,6 +139,9 @@ public class NoticeFragment extends Fragment {
                     PreferenceManager.setBoolean(mContext, "notice_auth", auth);
                     Boolean bo = PreferenceManager.getBoolean(mContext,"notice_auth");
                     Log.d("auth확인",Boolean.toString(bo));
+                    if(auth) {
+                        floatingActionButton.setVisibility(View.VISIBLE);
+                    }
                     floatingActionButton.setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
                     e.printStackTrace();
