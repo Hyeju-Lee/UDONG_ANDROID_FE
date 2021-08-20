@@ -24,7 +24,7 @@
             android:textSize="30dp"
             android:textStyle="bold" />
 
-        <HorizontalScrollView
+        <!--<HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -153,7 +153,7 @@
                     android:text="12월"
                     android:textColor="#A153A1" />
             </LinearLayout>
-        </HorizontalScrollView>
+        </HorizontalScrollView>-->
 
         <RelativeLayout
             android:orientation="vertical"

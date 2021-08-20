@@ -49,6 +49,15 @@ public class NoticeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_notice,container, false);
 
         mContext = getActivity();
+
+        return view;
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         getUserRole();
         noticeListView = (ListView) view.findViewById(R.id.noticeListView);
         noticeList = new ArrayList<>();
@@ -66,9 +75,6 @@ public class NoticeFragment extends Fragment {
             }
 
         });
-
-        return view;
-
 
     }
 

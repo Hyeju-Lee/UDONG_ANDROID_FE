@@ -52,6 +52,7 @@ public class OpenClubActivity extends AppCompatActivity {
     TextView textView;
     private Context context;
     List<Role> roles;
+    CheckBox authCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class OpenClubActivity extends AppCompatActivity {
         checkBtn = findViewById(R.id.checkBtn);
 
         textView = findViewById(R.id.textView);
+        authCheck = findViewById(R.id.authCheck);
 
         adapter = new ListViewAdapter_openClub(OpenClubActivity.this);
         listView1.setAdapter(adapter);
@@ -88,16 +90,10 @@ public class OpenClubActivity extends AppCompatActivity {
         jobaddbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adapter.addItem(groupjob.getText().toString());
+                adapter.addItem(groupjob.getText().toString(), authCheck.isChecked());
                 adapter.notifyDataSetChanged(); // 변경되었음을 어답터에 알려준다.
                 groupjob.setText("");
-                /*String roleName = PreferenceManager.getString(context,"roleName");
-        boolean auth = PreferenceManager.getBoolean(context, "auth");
-        roles.add(new Role(roleName, auth));
-        int position = PreferenceManager.getInt(context,"position");
-        if (position != -1){
-            roles.remove(position+1);
-        }*/
+                authCheck.setChecked(false);
             }
         });
 
@@ -113,10 +109,19 @@ public class OpenClubActivity extends AppCompatActivity {
             }
         });
 
-
         makeGroupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (int i = 0; i < ListViewAdapter_openClub.listItems.size();i++) {
+                    ListItemDetail_register detail_register = ListViewAdapter_openClub.listItems.get(i);
+                    String roleName = detail_register.getWhat();
+                    boolean checked = detail_register.isAuth();
+                    Log.d("확인", roleName + checked);
+                    Role role = new Role(roleName, checked);
+                    roles.add(role);
+                }
+                Role r2 = new Role("총무", true);
+                roles.add(r2);
                 String name = groupName.getText().toString();
                 int generation = Integer.parseInt(groupNum.getText().toString());
                 String code = groupCode.getText().toString();
@@ -124,32 +129,31 @@ public class OpenClubActivity extends AppCompatActivity {
                 Log.d("이름 확인",name+code+info+generation);
                 Club club = new Club(name, generation, info, code);
                 openClub(club);
-                /*String roleName = PreferenceManager.getString(context,"roleName");
-                boolean auth = PreferenceManager.getBoolean(context, "auth");
-                roles.add(new Role(roleName, auth));
-
-                for (int i = 0; i < roles.size(); i++) { //1번부터 쓰기
-                    Log.d("role이름",roles.get(i).getName()+roles.get(i).isNotice_auth());
-                }*/
-
-               // ArrayList<Role> roles = readRoles();
-               // Log.d("role 확인!!!", roles.get(0).getName());
-
-                //Intent registerIntent = new Intent(OpenClubActivity.this, MainActivity.class);
-                //OpenClubActivity.this.startActivity(registerIntent);
             }
         });
+
+
     }
 
-    public ArrayList<Role> readRoles() {
-        SharedPreferences sharedPreferences = android.preference.PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("roleArray","");
-        Log.d("json",json);
-        Type type = new TypeToken<ArrayList<Role>>(){}.getType();
-        ArrayList<Role> arrayList = gson.fromJson(json, type);
-        return arrayList;
+    public void sendRole() {
+        Long clubId = PreferenceManager.getLong(context,"clubId");
+        Call<Void> call = RetrofitClient.getApiService().sendRoles(clubId, roles);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상 send role", "error code" + response.code());
+                    return;
+                }
+                Log.d("연결 성공 send role", "성공");
+                addLeaderRole();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("연결 실패 send role", t.getMessage());
+            }
+        });
     }
 
     public void openClub(Club club) {
@@ -165,8 +169,7 @@ public class OpenClubActivity extends AppCompatActivity {
                 PreferenceManager.setLong(context,"clubId",response.body());
                 String log = Long.toString(PreferenceManager.getLong(context,"clubId"));
                 Log.d("clubId 확인",log);
-                addLeaderRole();
-                registerUser();
+                sendRole();
             }
 
             @Override
@@ -212,6 +215,8 @@ public class OpenClubActivity extends AppCompatActivity {
                     return;
                 }
                 Log.d("연결 성공 register user",response.body().toString());
+                Intent registerIntent = new Intent(OpenClubActivity.this, MainActivity.class);
+                OpenClubActivity.this.startActivity(registerIntent);
             }
 
             @Override
@@ -232,7 +237,7 @@ public class OpenClubActivity extends AppCompatActivity {
                     return;
                 }
                 Log.d("연결 성공 set role",response.body().toString());
-
+                registerUser();
             }
 
             @Override

@@ -50,7 +50,6 @@ public class ReceiptFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_receipt,container, false);
-
         return view;
     }
 
@@ -66,17 +65,6 @@ public class ReceiptFragment extends Fragment{
         getUserRole();
         getReceipts();
 
-
-        button1 = view.findViewById(R.id.button1); //1월 버튼
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Intent intent = new Intent(getActivity(), MoneyActivity2.class);
-                Intent intent= new Intent(getActivity(), DetailMoneyActivity.class);
-                startActivity(intent);
-            }
-
-        });
 
         button_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +195,7 @@ public class ReceiptFragment extends Fragment{
                     PreferenceManager.setBoolean(mContext, "notice_auth", auth);
                     Boolean bo = PreferenceManager.getBoolean(mContext,"notice_auth");
                     Log.d("auth확인",Boolean.toString(bo));
-                    if (role.equals("회장")) {            //나중에 총무로 바꾸기! 시연영상을 위해 바꿔놓음
+                    if (role.equals("총무") || role.equals("회장")) {
                         button_add.setVisibility(View.VISIBLE);
                     }
 

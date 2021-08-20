@@ -148,7 +148,7 @@
                     <EditText
                         android:id="@+id/clubInfo"
                         android:layout_width="wrap_content"
-                        android:layout_height="101dp"
+                        android:layout_height="80dp"
                         android:layout_gravity="center"
                         android:background="@drawable/textviewpretty"
                         android:ems="17"
@@ -162,7 +162,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="        동아리 직급"
+                        android:text="        동아리 직급(회장, 총무는 자동 추가됩니다)"
                         android:textSize="15dp"
                         android:textStyle="bold" />
 
@@ -174,18 +174,28 @@
 
                         <EditText
                             android:id="@+id/groupjob"
-                            android:layout_width="270dp"
+                            android:layout_width="150dp"
                             android:layout_height="match_parent"
-                            android:hint="회장, 총무는 필수값입니다."
                             android:padding="10dp"
                             android:textColor="#E7D5FC"
                             android:textColorHint="#E7D5FC" />
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="공지 작성 권한"/>
+
+                        <CheckBox
+                            android:id="@+id/authCheck"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
 
                         <Button
                             android:id="@+id/jobaddbutton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="추가하기"
+                            android:text="추가"
                             app:backgroundTint="#E7D5FC" />
 
                     </LinearLayout>
@@ -252,23 +262,20 @@
 
                         <ScrollView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1">
-
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:fillViewport="true">
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:scrollbarFadeDuration="0"
-                                android:scrollbarSize="5dp">
-
+                                android:orientation="vertical">
                                 <ListView
                                     android:id="@+id/listView1"
                                     android:layout_width="match_parent"
                                     android:layout_height="200dp">
                                 </ListView>
-
                             </LinearLayout>
+
                         </ScrollView>
 
                         <Button

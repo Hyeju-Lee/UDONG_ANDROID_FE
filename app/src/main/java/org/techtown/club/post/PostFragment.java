@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,40 +46,22 @@ public class PostFragment extends Fragment {
     HashMap<Integer, ArrayList<String>> hashMap;
     ArrayList<String> forHash;
     ArrayList<ListItemDetail_Frag3> listViewData2;
-    ListAdapter customAdapter2;
+    GroupListAdapter_Frag3 customAdapter2;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_post,container, false);
-
-        /*for (int key : hashMap.keySet()) {
-            String team = key+"조";
-            String teamPeople = "";
-            ArrayList<String> value = hashMap.get(key);
-            for (int i = 0 ; i < value.size(); i++) {
-                teamPeople += value.get(i) + " ";
+        mContext = getActivity();
+        groupAddButton = view.findViewById(R.id.groupAddButton);
+        groupAddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(mContext, groupAdd.class);
+                startActivity(intent);
             }
-            Log.d("화기",team+teamPeople);
-            ListItemDetail_Frag3 listData2 = new ListItemDetail_Frag3(team,
-                    teamPeople);
 
-            listViewData2.add(listData2);
-        }*/
-        /*String[][] item = {{"1조", "김수경 이혜주 김예나"}, {"2조", "김수경 이혜주 김예나"},
-                {"3조", "김수경 이혜주 김예나"}};
-
-
-        for (int i = 0; i < item.length; i++) {
-            ListItemDetail_Frag3 listData2 = new ListItemDetail_Frag3(item[i][0],
-                    item[i][1]);
-
-            listViewData2.add(listData2);
-        }*/
-
-
-
-
+        });
         return view;
     }
 
@@ -86,21 +70,10 @@ public class PostFragment extends Fragment {
         super.onResume();
         teamNumbers = new ArrayList<>();
         hashMap = new HashMap<>();
-        mContext = getActivity();
         forHash = new ArrayList<>();
         listView2 = (ListView)view.findViewById(R.id.listView2);
         listViewData2 = new ArrayList<>();
         getTeam();
-        testHash();
-        groupAddButton = view.findViewById(R.id.groupAddButton);
-        groupAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent= new Intent(getActivity(), groupAdd.class);
-                startActivity(intent);
-            }
-
-        });
     }
 
     public void testHash() {
@@ -180,7 +153,7 @@ public class PostFragment extends Fragment {
 
                         listViewData2.add(listData2);
                     }
-                    customAdapter2 = new GroupListAdapter_Frag3(getContext(),listViewData2);
+                    customAdapter2 = new GroupListAdapter_Frag3(mContext,listViewData2);
                     listView2.setAdapter(customAdapter2);
                     listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -204,4 +177,44 @@ public class PostFragment extends Fragment {
             }
         });
     }
+
+    public void getUserRole() {
+        Long userId = PreferenceManager.getLong(mContext,"userId");
+        Long clubId = PreferenceManager.getLong(mContext, "clubId");
+        Log.d("id들 확인",userId+"//"+clubId);
+        Call call = RetrofitClient.getApiService().getUserRole(userId,clubId);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (!response.isSuccessful()) {
+                    Log.e("get userRole 연결 비정상","error code"+response.code());
+                    return;
+                }
+                String result = new Gson().toJson(response.body());
+                //연결이 잘 됐고, 해당 클럽코드를 가진 동아리가 있을 때
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String role = jsonObject.getString("name");
+                    boolean auth = jsonObject.getBoolean("notice_auth");
+                    PreferenceManager.setBoolean(mContext, "notice_auth", auth);
+                    Boolean bo = PreferenceManager.getBoolean(mContext,"notice_auth");
+                    Log.d("auth확인",Boolean.toString(bo));
+                    if (role.equals("회장")) {
+                        groupAddButton.setVisibility(View.VISIBLE);
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.e("user role 연결 실패", t.getMessage());
+            }
+        });
+    }
+
+
 }

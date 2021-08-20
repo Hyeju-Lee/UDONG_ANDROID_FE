@@ -93,4 +93,7 @@ public interface RetrofitAPI {
 
     @POST("/api/udong/post/{club_id}/{userId}")
     Call<Long> sendPost(@Path("club_id")Long club_id, @Path("userId")Long userId, @Body ClubPost clubPost);
+
+    @POST("api/udong/clubRole/roles/{clubId}")
+    Call<Void> sendRoles(@Path("clubId")Long clubId, @Body List<Role> roles);
 }

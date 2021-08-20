@@ -30,7 +30,8 @@
                 android:id="@+id/groupAddButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="조 추가하기" />
+                android:text="조 추가하기"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/cmdArea"

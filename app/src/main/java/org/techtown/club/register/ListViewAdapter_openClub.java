@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ListViewAdapter_openClub extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<ListItemDetail2> listItems = new ArrayList<>();
+    public static ArrayList<ListItemDetail_register> listItems = new ArrayList<>();
 
     public ListViewAdapter_openClub(Context context){
         this.mContext = context;
@@ -58,22 +58,16 @@ public class ListViewAdapter_openClub extends BaseAdapter {
         CheckBox checkBox = (CheckBox)convertView.findViewById(R.id.checkBox);
         Button btn_delete = (Button)convertView.findViewById(R.id.btn_delete);
 
-        ListItemDetail2 listItemDetail2 = listItems.get(position);
 
+        ListItemDetail_register listItemDetail2 = listItems.get(position);
         // 가져온 데이터를 텍스트뷰에 입력
         role_name.setText(listItemDetail2.getWhat());
+        checkBox.setChecked(listItemDetail2.isAuth());
+        checkBox.setEnabled(false);
 
         String name = listItemDetail2.getWhat();
         boolean notice_auth = checkBox.isChecked();
 
-        Role roles = new Role(name, notice_auth);
-        SharedPreferences preferences = android.preference.PreferenceManager.getDefaultSharedPreferences(mContext);
-        SharedPreferences.Editor editor = preferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(roles);
-        Log.d("json확인",json);
-        editor.putString("role",json);
-        editor.commit();
 
         // 리스트 아이템 삭제
         btn_delete.setOnClickListener(new View.OnClickListener() {
@@ -88,11 +82,14 @@ public class ListViewAdapter_openClub extends BaseAdapter {
         return convertView;
     }
 
-    public void addItem(String what){
-        ListItemDetail2 listItemDetail2 = new ListItemDetail2();
+    public void addItem(String what, boolean auth){
+        ListItemDetail_register listItemDetail_register = new ListItemDetail_register();
 
-        listItemDetail2.setWhat(what);
+        listItemDetail_register.setWhat(what);
 
-        listItems.add(listItemDetail2);
+        listItemDetail_register.setAuth(auth);
+
+        listItems.add(listItemDetail_register);
+
     }
 }

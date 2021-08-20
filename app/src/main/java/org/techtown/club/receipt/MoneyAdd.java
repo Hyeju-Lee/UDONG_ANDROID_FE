@@ -121,9 +121,6 @@ public class MoneyAdd extends AppCompatActivity {
                     Log.d("receipts확인", receipts.get(i).getContent());
                 }
                 postReceipt();
-                adapter.clear();
-                adapter2.clear();
-                finish();
             }
         });
 
@@ -176,6 +173,9 @@ public class MoneyAdd extends AppCompatActivity {
                     return;
                 }
                 Log.d("연결 성공 receipt", "d");
+                adapter.clear();
+                adapter2.clear();
+                finish();
             }
 
             @Override

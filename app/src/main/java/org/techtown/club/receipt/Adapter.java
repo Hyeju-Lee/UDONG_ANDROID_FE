@@ -77,8 +77,7 @@ public class Adapter extends BaseAdapter {
         System.out.println(cnt.get(0));
 
 
-
-            if(cnt.get(count)==0){
+            if(cnt.size() > 0 && cnt.get(count)==0){
                 mViewHolder1.txt_item.setText(array_mountain1.get(position));
                 count++;
 
@@ -87,6 +86,7 @@ public class Adapter extends BaseAdapter {
                 //mViewHolder1.txt_item.
                 mViewHolder1.txt_item.findViewById(R.id.txt_item).setVisibility(View.GONE);
             }
+
 
 
         mViewHolder1.txt_name.setText(array_mountain2.get(position));

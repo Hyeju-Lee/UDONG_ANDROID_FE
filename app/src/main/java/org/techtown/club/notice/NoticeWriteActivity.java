@@ -52,8 +52,9 @@ public class NoticeWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 postNotice();
-                Intent registerIntent = new Intent(NoticeWriteActivity.this, MainActivity.class);
-                NoticeWriteActivity.this.startActivity(registerIntent);
+                titleText.setText("");
+                contentText.setText("");
+                finish();
             }
         });
 
