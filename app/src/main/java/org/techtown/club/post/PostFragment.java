@@ -54,6 +54,7 @@ public class PostFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_post,container, false);
         mContext = getActivity();
         groupAddButton = view.findViewById(R.id.groupAddButton);
+        getUserRole();
         groupAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
