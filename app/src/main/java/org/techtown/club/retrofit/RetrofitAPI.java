@@ -4,6 +4,7 @@ package org.techtown.club.retrofit;
 import android.util.Log;
 
 import org.techtown.club.dto.Club;
+import org.techtown.club.dto.ClubPost;
 import org.techtown.club.dto.Notice;
 import org.techtown.club.dto.Receipt;
 import org.techtown.club.dto.Role;
@@ -86,4 +87,10 @@ public interface RetrofitAPI {
 
     @GET("api/udong/user/teamNumber/{userId}/{clubId}")
     Call<Integer> getUserTeam(@Path("userId")Long userId, @Path("clubId")Long clubId);
+
+    @GET("api/udong/post/teamNumber/{clubId}/{teamNumber}")
+    Call<ResponseBody> getPostList(@Path("clubId")Long clubId, @Path("teamNumber")int teamNumber);
+
+    @POST("/api/udong/post/{club_id}/{userId}")
+    Call<Long> sendPost(@Path("club_id")Long club_id, @Path("userId")Long userId, @Body ClubPost clubPost);
 }

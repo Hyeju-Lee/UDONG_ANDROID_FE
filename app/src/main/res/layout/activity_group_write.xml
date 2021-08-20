@@ -33,7 +33,7 @@
                 android:inputType="date" />
 
             <EditText
-                android:id="@+id/noticeTittle"
+                android:id="@+id/postTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -47,7 +47,7 @@
                 android:privateImeOptions="defaultInputmode=korean" />
 
             <EditText
-                android:id="@+id/noticeContent"
+                android:id="@+id/postContent"
                 android:layout_width="wrap_content"
                 android:layout_height="301dp"
                 android:layout_gravity="center"
@@ -70,12 +70,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
 
-                <Button
+                <!--<Button
                     android:id="@+id/addImageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="사진 추가" />
+                    android:text="사진 추가" />-->
 
                 <ImageView
                     android:id="@+id/imageView"

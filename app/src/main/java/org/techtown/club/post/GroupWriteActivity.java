@@ -1,16 +1,25 @@
 package org.techtown.club.post;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
+import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
+import org.techtown.club.dto.ClubPost;
+import org.techtown.club.retrofit.RetrofitClient;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.io.InputStream;
 
@@ -18,28 +27,37 @@ public class GroupWriteActivity extends AppCompatActivity {
 
     Button submitButton;
     ImageView imageView;
-    Button addImageButton;
+    //Button addImageButton;
+    EditText postTitle;
+    EditText postContent;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_write);
+        mContext = this;
 
         submitButton = findViewById(R.id.submitButton);
         imageView = findViewById(R.id.imageView);
-        addImageButton = findViewById(R.id.addImageButton);
+        //addImageButton = findViewById(R.id.addImageButton);
+
+        postTitle = findViewById(R.id.postTitle);
+        postContent = findViewById(R.id.postContent);
 
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent registerIntent = new Intent(GroupWriteActivity.this, GroupActivity.class);
-                GroupWriteActivity.this.startActivity(registerIntent);
+                sendPost();
+                postTitle.setText("");
+                postContent.setText("");
+                finish();
             }
         });
 
 
-        addImageButton.setOnClickListener(new View.OnClickListener() {
+        /*addImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -47,10 +65,37 @@ public class GroupWriteActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, 1);
             }
+        });*/
+    }
+
+    public void sendPost() {
+        Long userId = PreferenceManager.getLong(mContext, "userId");
+        Long clubId = PreferenceManager.getLong(mContext, "clubId");
+        int teamNumber = PreferenceManager.getInt(mContext, "teamNumber");
+        Log.d("id들 확인(notice)",userId+"//"+clubId);
+        String title = postTitle.getText().toString();
+        String content = postContent.getText().toString();
+        ClubPost clubPost = new ClubPost(title, content,teamNumber);
+        Log.d("내용 확인",clubPost.getTeamNumber()+clubPost.getTitle());
+        Call<Long> call = RetrofitClient.getApiService().sendPost(clubId,userId,clubPost);
+        call.enqueue(new Callback<Long>() {
+            @Override
+            public void onResponse(Call<Long> call, Response<Long> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상 post ","error code"+response.code());
+                    return;
+                }
+                Log.d("연결 성공 post ",Long.toString(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<Long> call, Throwable t) {
+                Log.e("연결 실패 post", t.getMessage());
+            }
         });
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         super.onActivityResult(requestCode, resultCode, data);
@@ -69,5 +114,5 @@ public class GroupWriteActivity extends AppCompatActivity {
                 }
             }
         }
-    }
+    }*/
 }
