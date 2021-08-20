@@ -142,7 +142,6 @@ public class NoticeFragment extends Fragment {
                     if(auth) {
                         floatingActionButton.setVisibility(View.VISIBLE);
                     }
-                    floatingActionButton.setVisibility(View.VISIBLE);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
