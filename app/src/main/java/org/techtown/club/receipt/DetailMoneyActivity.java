@@ -11,14 +11,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.techtown.club.Adapter;
 import org.techtown.club.PreferenceManager;
 import org.techtown.club.R;
 import org.techtown.club.dto.DetailMoneyDto;

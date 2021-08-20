@@ -71,4 +71,19 @@ public interface RetrofitAPI {
 
     @GET("api/udong/receipt/useDate/{clubId}/{useDate}")
     Call<ResponseBody> getReceiptList(@Path("clubId")Long clubId, @Path("useDate")String useDate);
+
+    @GET("api/udong/club/user/{clubId}")
+    Call<ResponseBody> getUserList(@Path("clubId")Long clubId);
+
+    @GET("api/udong/user/clubUser/{userId}/{clubId}")
+    Call<Long> getClubUserId(@Path("userId")Long userId, @Path("clubId")Long clubId);
+
+    @GET("api/udong/clubUser/teamNumber/{id}/{teamNumber}")
+    Call<Long> setTeamNumber(@Path("id")Long id, @Path("teamNumber")int teamNumber);
+
+    @GET("api/udong/clubUser/teamNumber/user/{clubId}")
+    Call<ResponseBody> getTeam(@Path("clubId")Long clubId);
+
+    @GET("api/udong/user/teamNumber/{userId}/{clubId}")
+    Call<Integer> getUserTeam(@Path("userId")Long userId, @Path("clubId")Long clubId);
 }

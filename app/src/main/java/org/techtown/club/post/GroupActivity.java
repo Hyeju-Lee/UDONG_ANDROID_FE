@@ -1,17 +1,24 @@
 package org.techtown.club.post;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.techtown.club.PreferenceManager;
 import org.techtown.club.dto.Notice;
 import org.techtown.club.NoticeListAdapter2;
 import org.techtown.club.R;
+import org.techtown.club.retrofit.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +28,15 @@ public class GroupActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton2;
     private ListView noticeListView;
     private List<Notice> noticeList;
+    Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group);
+        mContext = this;
+        Log.d("확인",Integer.toString( PreferenceManager.getInt(mContext, "teamNumber")));
+        getUserTeam();
 
         noticeListView = findViewById(R.id.noticeListView);
         noticeList = new ArrayList<Notice>();
@@ -48,6 +59,31 @@ public class GroupActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent registerIntent = new Intent(GroupActivity.this, GroupWriteActivity.class);
                 GroupActivity.this.startActivity(registerIntent);
+            }
+        });
+    }
+
+    public void getUserTeam() {
+        Long userId = PreferenceManager.getLong(mContext, "userId");
+        Long clubId = PreferenceManager.getLong(mContext, "clubId");
+        Call<Integer> call = RetrofitClient.getApiService().getUserTeam(userId, clubId);
+        call.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("연결 비정상 get user team","error code"+response.code());
+                    return;
+                }
+                Log.d("연결 성공 get user team",response.body().toString());
+                PreferenceManager.setInt(mContext, "userTeamNumber", response.body());
+                if (PreferenceManager.getInt(mContext, "teamNumber") == response.body()) {
+                    floatingActionButton2.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.d("연결 실패 get user team", t.getMessage());
             }
         });
     }

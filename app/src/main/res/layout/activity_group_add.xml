@@ -23,24 +23,34 @@
             android:textSize="30dp"
             android:textStyle="bold" />
 
-        <Spinner
+        <!--<Spinner
             android:id="@+id/emoticonSpinner"
             android:layout_width="360dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="10dp" />
-
-        <EditText
-            android:id="@+id/groupName"
-            android:layout_width="360dp"
+            android:padding="10dp" />-->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="text"
-            android:padding="10dp"
-            android:hint="그룹 이름"
-            android:textColor="#E7D5FC"
-            android:textColorHint="#E7D5FC" />
+            android:orientation="horizontal"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/groupName"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="#E7D5FC"
+                android:textColorHint="#E7D5FC" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="조"
+                android:textSize="20dp"/>
+        </LinearLayout>
+
 
 
         <LinearLayout
@@ -49,13 +59,21 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
-            <EditText
+            <Spinner
+                android:id="@+id/nameSpinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"/>
+
+
+            <!--<EditText
                 android:id="@+id/nameAddView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="조원 추가"
                 android:textColorHint="#E7D5FC"
-                android:layout_weight="1"/>
+                android:layout_weight="1"/>-->
 
             <Button
                 android:id="@+id/nameButton"

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ListViewDetailAdapter_GroupAdd extends BaseAdapter {
 
     private Context mContext;
-    private ArrayList<ListItemDetail2> listItems4 = new ArrayList<>();
+    public static ArrayList<ListItemDetail2> listItems4 = new ArrayList<>();
 
     public ListViewDetailAdapter_GroupAdd(Context context){
         this.mContext = context;
@@ -71,5 +71,9 @@ public class ListViewDetailAdapter_GroupAdd extends BaseAdapter {
         listItemDetail2.setWhat(what);
 
         listItems4.add(listItemDetail2);
+    }
+
+    public void clear() {
+        listItems4.clear();
     }
 }
